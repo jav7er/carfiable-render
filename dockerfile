@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 
 # Copiar archivos del proyecto
 COPY package*.json ./
-RUN npm ci
+RUN npm install
 
 COPY . .
 
