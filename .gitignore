@@ -1,0 +1,13 @@
+node_modules
+.DS_Store
+.claude
+# Ignorar archivos temporales de imagen en el root
+*.webp
+*.png
+
+# Pero mantener los de ideas y public
+!ideas/**
+!public/**
+!Asset\ 2.png
+!brand-config.json
+!carfiable-stories.pen

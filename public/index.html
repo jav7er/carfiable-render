@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Story Generator — carfiable</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; -webkit-font-smoothing: antialiased; }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #3bd8ff, #3b61ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #1f2937 25%, #2d3748 50%, #1f2937 75%);
+      background-size: 400px 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 6px;
+    }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .cf-input {
+      background: #1f2937;
+      border: 1.5px solid #374151;
+      color: white;
+      border-radius: 10px;
+      padding: 13px 16px;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      transition: border-color 0.18s;
+      outline: none;
+    }
+    .cf-input:focus { border-color: #3865E9; }
+    .cf-input::placeholder { color: #6b7280; font-weight: 400; }
+
+    .car-card {
+      background: #1f2937;
+      border: 1.5px solid #2d3748;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.18s, background 0.18s;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 12px 14px;
+    }
+    .car-card:hover { border-color: #3865E9; background: #1e2d4a; }
+    .car-card:active { transform: scale(0.99); }
+
+    .photo-item {
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      transition: opacity 0.2s, filter 0.2s, outline 0.15s;
+      outline: 3px solid transparent;
+    }
+    .photo-item.selected   { outline-color: #3865E9; outline-offset: 2px; }
+    .photo-item.deselected { opacity: 0.32; filter: grayscale(70%); }
+    .photo-item img        { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .check-badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 24px; height: 24px;
+      background: #3865E9;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.15s;
+      pointer-events: none;
+    }
+    .photo-item.selected .check-badge { opacity: 1; }
+
+    /* Template thumbnails */
+    .tpl-thumb {
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2.5px solid #374151;
+      transition: border-color 0.18s, transform 0.15s;
+      flex: 1;
+    }
+    .tpl-thumb:hover   { border-color: #6b7280; }
+    .tpl-thumb.active  { border-color: #3865E9; transform: scale(1.04); }
+    .tpl-preview       { aspect-ratio: 9/16; position: relative; overflow: hidden; }
+    .tpl-label         { font-size: 11px; font-weight: 700; text-align: center; padding: 5px 0; background: #1f2937; color: #9ca3af; }
+    .tpl-thumb.active .tpl-label { color: #3865E9; }
+
+    .cf-btn {
+      background: #3865E9;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      padding: 16px 32px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      transition: opacity 0.18s, transform 0.12s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .cf-btn:hover:not(:disabled)  { opacity: 0.88; transform: translateY(-1px); }
+    .cf-btn:active:not(:disabled) { transform: translateY(0); }
+    .cf-btn:disabled               { opacity: 0.38; cursor: not-allowed; transform: none; }
+
+    .cf-btn-secondary {
+      background: transparent;
+      color: #9ca3af;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 13px 24px;
+      border: 1.5px solid #374151;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .cf-btn-secondary:hover { border-color: #6b7280; color: white; }
+
+    .cf-btn-ghost {
+      background: none;
+      border: none;
+      color: #6b7280;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px 0;
+      display: flex; align-items: center; gap: 6px;
+      transition: color 0.18s;
+    }
+    .cf-btn-ghost:hover { color: white; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      width: 18px; height: 18px;
+      border: 2px solid rgba(255,255,255,0.25);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+
+    /* Search input wrapper */
+    .search-wrapper { position: relative; }
+    .search-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #6b7280;
+    }
+    .search-input-pad { padding-left: 44px !important; }
+
+    #result-img {
+      max-width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 24px 64px rgba(56,101,233,0.22);
+    }
+  </style>
+</head>
+<body class="bg-[#111827] text-white min-h-screen">
+
+  <!-- ============================
+       STEP 1: Buscar auto
+  ============================= -->
+  <div id="step-search" class="step active">
+    <div class="max-w-lg mx-auto px-4 pt-14 pb-10">
+
+      <!-- Logo -->
+      <div class="flex justify-center mb-10">
+        <img src="/ideas/negativo-color.svg" class="h-9 object-contain">
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-2xl font-black text-center mb-1">Generar Story</h1>
+      <p class="text-sm text-gray-500 text-center mb-8 font-medium">Busca el vehículo para diseñar</p>
+
+      <!-- Search input -->
+      <div class="search-wrapper mb-5">
+        <svg class="search-icon" width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35" stroke-linecap="round"/>
+        </svg>
+        <input id="search-input" type="text" placeholder="Marca, modelo o año..." class="cf-input search-input-pad" autocomplete="off">
+      </div>
+
+      <!-- Results -->
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- ============================
+       STEP 2: Confirmar datos
+  ============================= -->
+  <div id="step-confirm" class="step">
+    <div class="max-w-lg mx-auto px-4 pt-8 pb-14">
+
+      <!-- Back -->
+      <button id="btn-back" class="cf-btn-ghost mb-7">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        Volver
+      </button>
+
+      <h2 class="text-xl font-black mb-6">Confirmar datos</h2>
+
+      <!-- Campos editables -->
+      <div class="space-y-4 mb-8">
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Año</label>
+          <input id="f-anio" type="number" class="cf-input" placeholder="2022">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Modelo</label>
+          <input id="f-modelo" type="text" class="cf-input" placeholder="Mustang GT">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Versión / Trim</label>
+          <input id="f-version" type="text" class="cf-input" placeholder="Premium AWD">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Precio (MXN)</label>
+          <input id="f-precio" type="number" class="cf-input" placeholder="850000">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">WhatsApp</label>
+          <input id="f-telefono" type="tel" class="cf-input" placeholder="55 1234 5678" maxlength="20" value="656 1210910">
+        </div>
+      </div>
+
+      <!-- Fotos -->
+      <div class="mb-8">
+        <div class="flex items-center justify-between mb-3">
+          <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Fotos</label>
+          <span id="photo-count" class="text-xs text-gray-600 font-semibold"></span>
+        </div>
+        <div id="photo-grid" class="grid grid-cols-3 gap-2"></div>
+      </div>
+
+      <!-- Selector de plantilla -->
+      <div class="mb-8">
+        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Plantilla</label>
+        <div class="flex gap-3" id="tpl-picker">
+
+          <!-- T1: Dark Cinema -->
+          <div class="tpl-thumb active" data-tpl="1">
+            <div class="tpl-preview" style="background:#0a0c14;">
+              <!-- Gradiente top-bottom -->
+              <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.85) 0%,transparent 40%,rgba(0,0,0,0.92) 100%);"></div>
+              <!-- Texto central -->
+              <div style="position:absolute;top:18%;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:3px;">
+                <div style="width:30%;height:3px;background:rgba(255,255,255,0.5);border-radius:2px;"></div>
+                <div style="width:70%;height:8px;background:white;border-radius:3px;"></div>
+                <div style="width:45%;height:4px;background:#3865E9;border-radius:2px;"></div>
+              </div>
+              <!-- Miniaturas inclinadas -->
+              <div style="position:absolute;bottom:22%;left:-5%;right:-5%;height:14%;display:flex;gap:2px;transform:skewX(-12deg);overflow:hidden;">
+                <div style="flex:1;background:rgba(255,255,255,0.15);border-radius:1px;"></div>
+                <div style="flex:1;background:rgba(255,255,255,0.1);border-radius:1px;"></div>
+              </div>
+              <!-- Badge WA -->
+              <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);background:#3865E9;border-radius:20px;padding:3px 10px;width:55%;height:7%;"></div>
+            </div>
+            <div class="tpl-label">Dark Cinema</div>
+          </div>
+
+          <!-- T2: Frame Box -->
+          <div class="tpl-thumb" data-tpl="2">
+            <div class="tpl-preview" style="background:#111;position:relative;">
+              <!-- Marco blanco -->
+              <div style="position:absolute;top:18%;left:8%;right:8%;height:40%;border:1.5px solid rgba(255,255,255,0.7);border-radius:2px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
+                <div style="width:50%;height:4px;background:white;border-radius:2px;"></div>
+                <div style="width:30%;height:3px;background:#3865E9;border-radius:2px;"></div>
+                <div style="width:70%;height:2px;background:rgba(255,255,255,0.2);margin-top:4px;"></div>
+                <div style="width:55%;height:5px;background:rgba(255,255,255,0.8);border-radius:2px;margin-top:2px;align-self:flex-end;margin-right:10%;"></div>
+              </div>
+              <!-- Barra inferior dark -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:33%;background:#111827;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8%;">
+                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+                <div style="width:1px;height:30px;background:rgba(255,255,255,0.15);"></div>
+                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+                <div style="width:1px;height:30px;background:rgba(255,255,255,0.15);"></div>
+                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+              </div>
+            </div>
+            <div class="tpl-label">Frame Box</div>
+          </div>
+
+          <!-- T3: Split Blue -->
+          <div class="tpl-thumb" data-tpl="3">
+            <div class="tpl-preview" style="background:#111827;position:relative;overflow:hidden;">
+              <!-- Foto derecha clipeada -->
+              <div style="position:absolute;inset:0;clip-path:polygon(44% 0%,100% 0%,100% 100%,32% 100%);background:linear-gradient(135deg,#1a2540,#2a3a60);"></div>
+              <!-- Franja azul diagonal -->
+              <div style="position:absolute;inset:0;clip-path:polygon(38% 0%,50% 0%,38% 100%,26% 100%);background:linear-gradient(160deg,#3bd8ff,#3b61ff);"></div>
+              <!-- Texto izquierdo -->
+              <div style="position:absolute;top:15%;left:6%;width:35%;display:flex;flex-direction:column;gap:2px;">
+                <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:80%;"></div>
+                <div style="height:2px;background:rgba(255,255,255,0.2);border-radius:1px;width:60%;"></div>
+              </div>
+              <!-- Modelo enorme -->
+              <div style="position:absolute;top:30%;left:6%;width:90%;">
+                <div style="height:12px;background:rgba(255,255,255,0.85);border-radius:2px;width:70%;"></div>
+                <div style="height:7px;background:rgba(255,255,255,0.4);border-radius:2px;width:50%;margin-top:3px;"></div>
+              </div>
+              <!-- Precio gradient text -->
+              <div style="position:absolute;bottom:25%;left:6%;width:40%;">
+                <div style="height:4px;background:linear-gradient(90deg,#3bd8ff,#3b61ff);border-radius:2px;width:90%;"></div>
+                <div style="height:3px;background:rgba(255,255,255,0.5);border-radius:2px;width:65%;margin-top:3px;"></div>
+              </div>
+              <!-- Badge WA -->
+              <div style="position:absolute;bottom:12%;left:6%;background:#3865E9;border-radius:12px;padding:3px 8px;width:50%;height:7%;"></div>
+            </div>
+            <div class="tpl-label">Split Blue</div>
+          </div>
+
+          <!-- T4: Grid Collage -->
+          <div class="tpl-thumb" data-tpl="4">
+            <div class="tpl-preview" style="background:#0a0c12;position:relative;overflow:hidden;">
+              <!-- Grid 3x2 arriba (40%) -->
+              <div style="position:absolute;top:0;left:0;right:0;height:40%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:1px;background:#0a0c12;">
+                <div style="background:#1f2937;"></div>
+                <div style="background:#243050;"></div>
+                <div style="background:#1a2540;"></div>
+                <div style="background:#1e2440;"></div>
+                <div style="background:#1f2937;"></div>
+                <div style="background:#243050;"></div>
+              </div>
+              <!-- Hero foto abajo (60%) -->
+              <div style="position:absolute;top:40%;left:0;right:0;bottom:0;background:linear-gradient(135deg,#1a2540,#0a1020);">
+                <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 30%,rgba(0,0,0,0.9) 100%);"></div>
+              </div>
+              <!-- Barra info -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:22%;background:rgba(10,12,18,0.9);display:flex;align-items:center;gap:4px;padding:0 6%;">
+                <div style="flex:2;display:flex;flex-direction:column;gap:2px;">
+                  <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:60%;"></div>
+                  <div style="height:4px;background:rgba(255,255,255,0.7);border-radius:1px;width:90%;"></div>
+                </div>
+                <div style="width:1px;height:20px;background:rgba(255,255,255,0.12);"></div>
+                <div style="flex:1.3;display:flex;flex-direction:column;gap:2px;">
+                  <div style="height:2px;background:rgba(255,255,255,0.4);border-radius:1px;"></div>
+                  <div style="height:2px;background:#3865E9;border-radius:1px;width:70%;"></div>
+                  <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:80%;"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tpl-label">Grid Collage</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Botón generar -->
+      <button id="btn-generate" class="cf-btn" disabled>
+        Generar Story
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================
+       STEP 3: Resultado
+  ============================= -->
+  <div id="step-result" class="step">
+    <div class="max-w-lg mx-auto px-4 pt-8 pb-14 text-center">
+
+      <button id="btn-back-result" class="cf-btn-ghost mb-6" style="margin-left:0;">
+        <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        Volver
+      </button>
+
+      <h2 class="text-xl font-black mb-1 text-left">Story generado</h2>
+      <p class="text-sm text-gray-500 text-left mb-6 font-medium">Descarga y comparte en Instagram o WhatsApp</p>
+
+      <div class="mb-6">
+        <img id="result-img" src="" alt="Story generado">
+      </div>
+
+      <a id="btn-download" href="" download="story-carfiable.jpg" class="cf-btn no-underline mb-3" style="text-decoration:none;">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Descargar imagen
+      </a>
+      <button id="btn-restart" class="cf-btn-secondary mt-2">Generar otra</button>
+    </div>
+  </div>
+
+<script>
+  // ─── Estado global ─────────────────────────────────────────────────────────
+  const state = {
+    query: '',
+    results: [],
+    car: null,
+    photos: [],       // todas las URLs disponibles
+    selected: [],     // URLs seleccionadas
+    template: 1,
+    debouncer: null
+  };
+
+  // ─── Navegación ────────────────────────────────────────────────────────────
+  function showStep(id) {
+    document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ─── Formateo de precio ────────────────────────────────────────────────────
+  function fmtPrice(n) {
+    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', minimumFractionDigits: 0 }).format(n);
+  }
+
+  // ─── STEP 1: Búsqueda ──────────────────────────────────────────────────────
+  const searchInput = document.getElementById('search-input');
+  const resultsEl   = document.getElementById('search-results');
+
+  searchInput.addEventListener('input', e => {
+    const q = e.target.value.trim();
+    state.query = q;
+    clearTimeout(state.debouncer);
+    if (q.length < 2) { resultsEl.innerHTML = ''; return; }
+    renderSkeletons(4);
+    state.debouncer = setTimeout(() => doSearch(q), 320);
+  });
+
+  function renderSkeletons(n) {
+    resultsEl.innerHTML = Array.from({ length: n }).map(() => `
+      <div class="flex items-center gap-3 p-3 rounded-xl border border-[#2d3748] mb-2">
+        <div class="skeleton w-20 h-14 flex-shrink-0 rounded-lg"></div>
+        <div class="flex-1 space-y-2">
+          <div class="skeleton h-4 w-3/4"></div>
+          <div class="skeleton h-3 w-1/2"></div>
+          <div class="skeleton h-3 w-1/3"></div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  async function doSearch(q) {
+    try {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`);
+      if (!res.ok) throw new Error('Error en búsqueda');
+      const data = await res.json();
+      state.results = Array.isArray(data) ? data : (data.data || data.results || []);
+      renderResults(state.results);
+    } catch (err) {
+      resultsEl.innerHTML = `<p class="text-red-400 text-sm text-center py-6 font-semibold">Error al buscar. Intenta de nuevo.</p>`;
+    }
+  }
+
+  function getThumb(car) {
+    // La API de carfiable devuelve images[].image_url
+    const imgs = car.images || car.photos || car.exterior || car.fotos || [];
+    const arr = Array.isArray(imgs) ? imgs : [imgs];
+    if (!arr.length) return '';
+    const first = arr[0];
+    return typeof first === 'string' ? first : (first?.image_url || first?.url || first?.src || '');
+  }
+
+  function renderResults(cars) {
+    if (!cars.length) {
+      resultsEl.innerHTML = `<p class="text-gray-600 text-sm text-center py-10 font-semibold">Sin resultados para esta búsqueda.</p>`;
+      return;
+    }
+    resultsEl.innerHTML = cars.map(car => {
+      const thumb = getThumb(car);
+      const name  = [car.year || car.anio, car.make || '', car.model || car.modelo || ''].filter(Boolean).join(' ');
+      const ver   = car.version || car.trim || car.specs?.Submodel || car.specs?.Trim || '';
+      const price = parseFloat(car.price || car.precio) || 0;
+      return `
+        <div class="car-card mb-2" onclick="selectCar(${car.id})">
+          ${thumb
+            ? `<img src="${thumb}" class="w-20 h-14 object-cover rounded-lg flex-shrink-0 bg-gray-700"
+                    onerror="this.style.display='none'">`
+            : `<div class="w-20 h-14 rounded-lg flex-shrink-0 bg-gray-700 flex items-center justify-center">
+                 <svg width="24" height="24" fill="none" stroke="#4b5563" viewBox="0 0 24 24">
+                   <rect x="2" y="8" width="20" height="12" rx="2"/><path d="M16 8V6a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                 </svg>
+               </div>`
+          }
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-white text-sm truncate">${name}</p>
+            ${ver ? `<p class="text-xs text-gray-400 truncate font-semibold">${ver}</p>` : ''}
+            ${price ? `<p class="text-sm font-black gradient-text">${fmtPrice(price)}</p>` : ''}
+          </div>
+          <svg class="flex-shrink-0 text-gray-600" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // ─── Seleccionar auto y cargar detalle ─────────────────────────────────────
+  async function selectCar(id) {
+    // Loading inline
+    const card = document.querySelector(`[onclick="selectCar(${id})"]`);
+    if (card) {
+      card.innerHTML = `<div class="flex items-center gap-3 text-gray-400 py-1 text-sm font-semibold"><span class="spinner"></span> Cargando...</div>`;
+      card.style.cursor = 'default';
+    }
+    try {
+      const res = await fetch(`/api/car/${id}`);
+      if (!res.ok) throw new Error('No encontrado');
+      const raw = await res.json();
+      // Normalizar: puede venir como objeto directo o dentro de .data
+      state.car = raw?.data || (Array.isArray(raw) ? raw[0] : raw);
+      populateForm(state.car);
+      showStep('step-confirm');
+    } catch (err) {
+      if (card) {
+        card.innerHTML = `<p class="text-red-400 text-sm font-semibold py-1">Error al cargar. Intenta de nuevo.</p>`;
+        card.style.cursor = 'pointer';
+      }
+    }
+  }
+
+  // ─── STEP 2: Formulario ────────────────────────────────────────────────────
+  function normalizePhotos(car) {
+    // La API devuelve images[].image_url con type: 'exterior' | 'interior'
+    const raw = car.images || car.photos || car.exterior || car.fotos || [];
+    const arr = Array.isArray(raw) ? raw : (typeof raw === 'string' ? [raw] : []);
+    return arr
+      .filter(p => !p?.type || p.type === 'exterior')   // preferir fotos exteriores
+      .map(p => typeof p === 'string' ? p : (p?.image_url || p?.url || p?.src || ''))
+      .filter(Boolean);
+  }
+
+  function populateForm(car) {
+    document.getElementById('f-anio').value    = car.year  || car.anio    || '';
+    document.getElementById('f-modelo').value  = [car.make, car.model || car.modelo].filter(Boolean).join(' ');
+    // version viene en specs.Trim o specs.Submodel
+    document.getElementById('f-version').value = car.version || car.trim
+      || car.specs?.Submodel || car.specs?.Trim || '';
+    // price puede venir como string "610000.00"
+    document.getElementById('f-precio').value  = parseFloat(car.price || car.precio) || '';
+    document.getElementById('f-telefono').value = '656 1210910';
+
+    state.photos   = normalizePhotos(car);
+    state.selected = [...state.photos];   // todas seleccionadas por defecto
+
+    renderPhotoGrid();
+    updateGenerateBtn();
+  }
+
+  function renderPhotoGrid() {
+    const grid = document.getElementById('photo-grid');
+    const count = document.getElementById('photo-count');
+
+    if (!state.photos.length) {
+      grid.innerHTML = `<p class="text-gray-600 text-xs col-span-3 font-semibold">No hay fotos disponibles.</p>`;
+      count.textContent = '';
+      return;
+    }
+
+    count.textContent = `${state.selected.length} de ${state.photos.length} seleccionadas`;
+
+    grid.innerHTML = state.photos.map((url, i) => {
+      const isSel = state.selected.includes(url);
+      return `
+        <div class="photo-item ${isSel ? 'selected' : 'deselected'}" data-url="${url}" onclick="togglePhoto(this)">
+          <img src="${url}" loading="lazy" onerror="this.parentElement.style.display='none'">
+          <div class="check-badge">
+            <svg width="12" height="12" fill="none" stroke="white" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function togglePhoto(el) {
+    const url = el.dataset.url;
+    const isSelected = el.classList.contains('selected');
+    if (isSelected) {
+      if (state.selected.length <= 1) return; // mínimo 1
+      state.selected = state.selected.filter(u => u !== url);
+      el.classList.replace('selected', 'deselected');
+    } else {
+      if (!state.selected.includes(url)) state.selected.push(url);
+      el.classList.replace('deselected', 'selected');
+    }
+    document.getElementById('photo-count').textContent = `${state.selected.length} de ${state.photos.length} seleccionadas`;
+    updateGenerateBtn();
+  }
+
+  function updateGenerateBtn() {
+    const tel    = document.getElementById('f-telefono').value.trim();
+    const modelo = document.getElementById('f-modelo').value.trim();
+    const precio = document.getElementById('f-precio').value;
+    const btn    = document.getElementById('btn-generate');
+    btn.disabled = !(modelo && precio && tel && state.selected.length > 0);
+  }
+
+  // Actualizar botón en tiempo real al editar campos
+  ['f-telefono','f-modelo','f-precio','f-anio','f-version'].forEach(id => {
+    document.getElementById(id).addEventListener('input', updateGenerateBtn);
+  });
+
+  // ─── Selector de plantilla ─────────────────────────────────────────────────
+  document.querySelectorAll('.tpl-thumb').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.tpl-thumb').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      state.template = parseInt(el.dataset.tpl);
+    });
+  });
+
+  // ─── Generar story ─────────────────────────────────────────────────────────
+  document.getElementById('btn-generate').addEventListener('click', async () => {
+    const btn = document.getElementById('btn-generate');
+    btn.disabled = true;
+    btn.innerHTML = `<span class="spinner"></span> Generando...`;
+
+    const payload = {
+      anio:     parseInt(document.getElementById('f-anio').value)  || 0,
+      modelo:   document.getElementById('f-modelo').value.trim(),
+      version:  document.getElementById('f-version').value.trim(),
+      precio:   parseFloat(document.getElementById('f-precio').value) || 0,
+      telefono: document.getElementById('f-telefono').value.trim(),
+      exterior: state.selected,
+      template: state.template
+    };
+
+    if (!payload.modelo || !payload.precio || !payload.telefono) {
+      alert('Por favor completa modelo, precio y teléfono.');
+      btn.disabled = false;
+      btn.textContent = 'Generar Story';
+      return;
+    }
+
+    try {
+      const res = await fetch('/generate-story', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+
+      const blob = await res.blob();
+      const objURL = URL.createObjectURL(blob);
+
+      // Revocar URL anterior si existe
+      const prevImg = document.getElementById('result-img');
+      if (prevImg.src.startsWith('blob:')) URL.revokeObjectURL(prevImg.src);
+
+      prevImg.src = objURL;
+      document.getElementById('btn-download').href = objURL;
+      showStep('step-result');
+
+    } catch (err) {
+      alert('Error al generar el story. Verifica que el servidor esté activo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Generar Story';
+      updateGenerateBtn();
+    }
+  });
+
+  // ─── Navegación entre pasos ────────────────────────────────────────────────
+  document.getElementById('btn-back').addEventListener('click', () => showStep('step-search'));
+
+  document.getElementById('btn-back-result').addEventListener('click', () => showStep('step-confirm'));
+
+  document.getElementById('btn-restart').addEventListener('click', () => {
+    const img = document.getElementById('result-img');
+    if (img.src.startsWith('blob:')) URL.revokeObjectURL(img.src);
+    img.src = '';
+    searchInput.value = '';
+    resultsEl.innerHTML = '';
+    state.car = null;
+    state.photos = [];
+    state.selected = [];
+    showStep('step-search');
+  });
+</script>
+</body>
+</html>

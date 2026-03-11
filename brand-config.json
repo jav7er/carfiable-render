@@ -1,0 +1,54 @@
+{
+  "brand_name": "carfiable",
+  "tagline": "La forma más inteligente de comprar un seminuevo",
+  "website": "https://carfiable.mx",
+  "social_handles": {
+    "instagram": "@carfiable",
+    "facebook": "carfiable",
+    "tiktok": "@carfiable"
+  },
+
+  "colors": {
+    "primary": "#3865E9",
+    "gradient_start": "#3bd8ff",
+    "gradient_end": "#3b61ff",
+    "secondary": "#111827",
+    "accent": "#ffffff",
+    "background_dark": "#111827",
+    "background_light": "#f4f6f8",
+    "text_on_dark": "#ffffff",
+    "text_on_light": "#111111"
+  },
+
+  "gradients": {
+    "brand": "radial-gradient from #3bd8ff to #3b61ff",
+    "overlay_dark": "linear-gradient from #111827/90 to #111827/60",
+    "hero": "linear-gradient from #111827 via transparent to #111827/95"
+  },
+
+  "typography": {
+    "heading": "Montserrat",
+    "heading_weight": "800-900",
+    "body": "Montserrat",
+    "body_weight": "400-600"
+  },
+
+  "tone": "bold-energetic",
+
+  "logo_variants": {
+    "horizontal_dark_bg": "ideas/negativo-color.svg",
+    "square_with_icon": "ideas/logo-cuadrado-contorno.png"
+  },
+
+  "logo_path": "ideas/negativo-color.svg",
+  "assets_dir": "ideas/",
+
+  "brand_values": [
+    "Legalmente Verificado",
+    "Inspección Mecánica",
+    "Enganche desde el 10%",
+    "1,500+ autos vendidos"
+  ],
+
+  "style_notes": "Brand name is always lowercase: 'carfiable'. The logo wordmark uses a custom gradient from cyan (#3bd8ff) to deep blue (#3b61ff) — always apply on dark or photographic backgrounds. On light backgrounds, 'car' is in gradient blue and 'fiable' in near-black (#111827). The icon is a hand making the OK gesture with a car inside the circle — use for square/app-style formats. Primary CTA blue is #3865E9 (solid, no gradient). Dark navy (#111827) is the preferred background for stories and hero posts. Photography should feature real people interacting with cars in a dealership or street context — warm, confident, approachable. Never use pure black (#000000) as background. Headline style: ALL CAPS, extremely bold (Black 900), tight letter-spacing (-0.02em to -0.04em). The brand speaks to Mexican consumers aged 25-45 looking to buy a used car smartly. Competitors are OLX Autos, Kavak — position carfiable as more trusted, human, and tech-forward. Stories use the server-side render endpoint (POST /generate-story) for car listings."
+}
