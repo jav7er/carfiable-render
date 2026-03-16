@@ -176,6 +176,24 @@
       border-radius: 14px;
       box-shadow: 0 24px 64px rgba(56,101,233,0.22);
     }
+
+    .share-platform-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      width: 100%;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      transition: opacity 0.18s, transform 0.12s;
+    }
+    .share-platform-btn:hover  { opacity: 0.88; transform: translateY(-1px); }
+    .share-platform-btn:active { transform: translateY(0); opacity: 0.75; }
   </style>
 </head>
 <body class="bg-[#111827] text-white min-h-screen">
@@ -438,28 +456,98 @@
        STEP 3: Resultado
   ============================= -->
   <div id="step-result" class="step">
-    <div class="max-w-lg mx-auto px-4 pt-8 pb-14 text-center">
+    <div class="max-w-lg mx-auto px-4 pt-8 pb-14">
 
-      <button id="btn-back-result" class="cf-btn-ghost mb-6" style="margin-left:0;">
+      <button id="btn-back-result" class="cf-btn-ghost mb-6">
         <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         Volver
       </button>
 
-      <h2 class="text-xl font-black mb-1 text-left">Story generado</h2>
-      <p class="text-sm text-gray-500 text-left mb-6 font-medium">Descarga y comparte en Instagram o WhatsApp</p>
+      <h2 class="text-xl font-black mb-1">Story generado</h2>
+      <p class="text-sm text-gray-500 mb-6 font-medium">Elige cómo compartir</p>
 
-      <div class="mb-6">
+      <!-- Imagen -->
+      <div class="mb-6 text-center">
         <img id="result-img" src="" alt="Story generado">
       </div>
 
-      <a id="btn-download" href="" download="story-carfiable.jpg" class="cf-btn no-underline mb-3" style="text-decoration:none;">
+      <!-- ── Compartir ── -->
+      <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Compartir en</p>
+
+      <!-- Fila plataformas -->
+      <div class="grid grid-cols-2 gap-2 mb-2">
+
+        <!-- Instagram Story -->
+        <button class="share-platform-btn" onclick="shareImage('instagram-story')"
+          style="background:linear-gradient(135deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);">
+          <svg width="22" height="22" fill="none" stroke="white" stroke-width="1.8" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="5"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/>
+          </svg>
+          <div>
+            <div style="font-weight:800;font-size:13px;">Instagram</div>
+            <div style="font-size:10px;opacity:0.85;">Story · Publicación</div>
+          </div>
+        </button>
+
+        <!-- WhatsApp -->
+        <button class="share-platform-btn" onclick="shareImage('whatsapp')"
+          style="background:#128C7E;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+            <path d="M12.004 2C6.477 2 2 6.484 2 12.017c0 1.99.525 3.851 1.438 5.459L2 22l4.674-1.425A9.956 9.956 0 0012.004 22C17.523 22 22 17.516 22 11.983 22 6.451 17.523 2 12.004 2zm0 18.055a8.086 8.086 0 01-4.378-1.28l-.315-.19-3.239.984.934-3.327-.207-.333a8.11 8.11 0 01-1.267-4.309c0-4.51 3.609-8.181 8.076-8.181 2.16 0 4.189.855 5.716 2.41a8.094 8.094 0 012.368 5.741c-.01 4.51-3.62 8.485-8.688 8.485z"/>
+          </svg>
+          <div>
+            <div style="font-weight:800;font-size:13px;">WhatsApp</div>
+            <div style="font-size:10px;opacity:0.85;">Enviar imagen</div>
+          </div>
+        </button>
+
+        <!-- Facebook -->
+        <button class="share-platform-btn" onclick="shareImage('facebook')"
+          style="background:#1877F2;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <div>
+            <div style="font-weight:800;font-size:13px;">Facebook</div>
+            <div style="font-size:10px;opacity:0.85;">Story · Publicación</div>
+          </div>
+        </button>
+
+        <!-- Más opciones / Sistema -->
+        <button class="share-platform-btn" onclick="shareImage('native')"
+          style="background:#374151;border:1.5px solid #4b5563;">
+          <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <div>
+            <div style="font-weight:800;font-size:13px;">Más opciones</div>
+            <div style="font-size:10px;opacity:0.85;">Compartir en otras apps</div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Descargar -->
+      <a id="btn-download" href="" download="story-carfiable.jpg"
+        class="cf-btn no-underline mb-2 mt-2" style="text-decoration:none;">
         <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
         </svg>
         Descargar imagen
       </a>
+
       <button id="btn-restart" class="cf-btn-secondary mt-2">Generar otra</button>
     </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="share-toast" style="
+    position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:#1f2937;color:#fff;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;
+    padding:12px 20px;border-radius:40px;box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    opacity:0;transition:opacity 0.25s,transform 0.25s;pointer-events:none;white-space:nowrap;z-index:999;">
   </div>
 
 <script>
@@ -617,10 +705,10 @@
     // Oferta label — reset a PRECIO por defecto
     document.getElementById('f-oferta-label').value = 'PRECIO';
 
-    // Procedencia / tipo de registro
+    // Procedencia / tipo de registro — campo real de la API: registration_type
     const procedencia = (
-      car.procedencia || car.registro ||
-      car.specs?.Procedencia || car.specs?.Registro || 'MEXICANO DE AGENCIA'
+      car.registration_type || car.procedencia || car.registro ||
+      car.specs?.registration_type || car.specs?.Procedencia || 'MEXICANO DE AGENCIA'
     ).toUpperCase().trim();
     state.procedencia = procedencia;
     document.getElementById('f-registro-display').textContent = procedencia;
@@ -792,6 +880,47 @@
     state.template = 1;
     showStep('step-search');
   });
+
+  // ─── Compartir imagen ───────────────────────────────────────────────────────
+  async function getImageFile() {
+    const src = document.getElementById('result-img').src;
+    const res  = await fetch(src);
+    const blob = await res.blob();
+    return new File([blob], 'story-carfiable.jpg', { type: 'image/jpeg' });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('share-toast');
+    t.textContent = msg;
+    t.style.opacity   = '1';
+    t.style.transform = 'translateX(-50%) translateY(0)';
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => {
+      t.style.opacity   = '0';
+      t.style.transform = 'translateX(-50%) translateY(20px)';
+    }, 3200);
+  }
+
+  async function shareImage(platform) {
+    try {
+      const file = await getImageFile();
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Story Carfiable' });
+        return;
+      }
+      // Fallback: download + hint
+      document.getElementById('btn-download').click();
+      const hints = {
+        'instagram-story': 'Imagen descargada. Ábrela en Instagram → + → Historia',
+        'whatsapp':        'Imagen descargada. Adjúntala en WhatsApp',
+        'facebook':        'Imagen descargada. Súbela desde Facebook',
+        'native':          'Imagen descargada en tu dispositivo'
+      };
+      showToast(hints[platform] || 'Imagen descargada');
+    } catch(e) {
+      if (e.name !== 'AbortError') showToast('Error al compartir. Intenta descargar.');
+    }
+  }
 </script>
 </body>
 </html>

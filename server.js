@@ -71,7 +71,7 @@ function prepareTemplateData(data) {
     : data.version || null;
 
   // Registro / procedencia
-  const registro = data.procedencia || data.registro || 'MEXICANO DE AGENCIA';
+  const registro = (data.registration_type || data.procedencia || data.registro || 'MEXICANO DE AGENCIA').toUpperCase().trim();
 
   return {
     precio: fmt.format(precioNum),
