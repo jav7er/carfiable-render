@@ -262,8 +262,8 @@
           <input id="f-precio" type="number" class="cf-input" placeholder="850000">
         </div>
         <div>
-          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">WhatsApp</label>
-          <input id="f-telefono" type="tel" class="cf-input" placeholder="55 1234 5678" maxlength="20" value="656 1210910">
+          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Tipo de registro</label>
+          <div id="f-registro-display" class="cf-input" style="background:#161e2d;color:#9ca3af;cursor:default;user-select:none;">—</div>
         </div>
 
         <!-- Opciones de financiamiento -->
@@ -468,9 +468,10 @@
     query: '',
     results: [],
     car: null,
-    photos: [],       // todas las URLs disponibles
-    selected: [],     // URLs seleccionadas
+    photos: [],
+    selected: [],
     template: 1,
+    procedencia: null,
     debouncer: null
   };
 
@@ -609,11 +610,26 @@
     document.getElementById('f-version').value = car.version || car.trim
       || car.specs?.Submodel || car.specs?.Trim || '';
     document.getElementById('f-precio').value  = parseFloat(car.price || car.precio) || '';
-    document.getElementById('f-telefono').value = '656 1210910';
-    // km desde API (puede venir como mileage, km, kilometraje, specs.Mileage)
+    // km
     const km = car.km || car.kilometraje || car.mileage
       || parseInt(car.specs?.Mileage || car.specs?.Odometer || 0) || '';
     document.getElementById('f-km').value = km;
+    // Oferta label — reset a PRECIO por defecto
+    document.getElementById('f-oferta-label').value = 'PRECIO';
+
+    // Procedencia / tipo de registro
+    const procedencia = (
+      car.procedencia || car.registro ||
+      car.specs?.Procedencia || car.specs?.Registro || 'MEXICANO DE AGENCIA'
+    ).toUpperCase().trim();
+    state.procedencia = procedencia;
+    document.getElementById('f-registro-display').textContent = procedencia;
+
+    // Financiamiento automático según registro
+    const esMexAgencia = procedencia.includes('MEXICAN') && procedencia.includes('AGENCIA');
+    document.getElementById('f-plazo').value      = esMexAgencia ? '60 meses' : '48 meses';
+    document.getElementById('f-tasa').value       = esMexAgencia ? '1%' : '2%';
+    document.getElementById('f-tasa-label').value = 'Tasa mensual desde';
 
     state.photos   = normalizePhotos(car);
     state.selected = [...state.photos];
@@ -665,15 +681,14 @@
   }
 
   function updateGenerateBtn() {
-    const tel    = document.getElementById('f-telefono').value.trim();
     const modelo = document.getElementById('f-modelo').value.trim();
     const precio = document.getElementById('f-precio').value;
     const btn    = document.getElementById('btn-generate');
-    btn.disabled = !(modelo && precio && tel && state.selected.length > 0);
+    btn.disabled = !(modelo && precio && state.selected.length > 0);
   }
 
   // Actualizar botón en tiempo real al editar campos
-  ['f-telefono','f-marca','f-modelo','f-precio','f-anio','f-version','f-km'].forEach(id => {
+  ['f-marca','f-modelo','f-precio','f-anio','f-version','f-km'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateGenerateBtn);
   });
 
@@ -693,23 +708,23 @@
     btn.innerHTML = `<span class="spinner"></span> Generando...`;
 
     const payload = {
-      marca:      document.getElementById('f-marca').value.trim(),
-      anio:       parseInt(document.getElementById('f-anio').value) || 0,
-      modelo:     document.getElementById('f-modelo').value.trim(),
-      version:    document.getElementById('f-version').value.trim(),
-      precio:     parseFloat(document.getElementById('f-precio').value) || 0,
-      telefono:   document.getElementById('f-telefono').value.trim(),
-      km:         parseInt(document.getElementById('f-km').value) || 0,
+      marca:       document.getElementById('f-marca').value.trim(),
+      anio:        parseInt(document.getElementById('f-anio').value) || 0,
+      modelo:      document.getElementById('f-modelo').value.trim(),
+      version:     document.getElementById('f-version').value.trim(),
+      precio:      parseFloat(document.getElementById('f-precio').value) || 0,
+      km:          parseInt(document.getElementById('f-km').value) || 0,
+      procedencia: state.procedencia || 'MEXICANO DE AGENCIA',
       ofertaLabel: document.getElementById('f-oferta-label').value,
-      plazo:      document.getElementById('f-plazo').value.trim()      || '60 meses',
-      tasa:       document.getElementById('f-tasa').value.trim()       || '1%',
-      tasaLabel:  document.getElementById('f-tasa-label').value.trim() || 'Tasa mensual desde',
-      exterior:   state.selected,
-      template:   state.template
+      plazo:       document.getElementById('f-plazo').value.trim()      || '60 meses',
+      tasa:        document.getElementById('f-tasa').value.trim()       || '1%',
+      tasaLabel:   document.getElementById('f-tasa-label').value.trim() || 'Tasa mensual desde',
+      exterior:    state.selected,
+      template:    state.template
     };
 
-    if (!payload.modelo || !payload.precio || !payload.telefono) {
-      alert('Por favor completa modelo, precio y teléfono.');
+    if (!payload.modelo || !payload.precio) {
+      alert('Por favor completa modelo y precio.');
       btn.disabled = false;
       btn.textContent = 'Generar Story';
       return;
@@ -752,11 +767,29 @@
     const img = document.getElementById('result-img');
     if (img.src.startsWith('blob:')) URL.revokeObjectURL(img.src);
     img.src = '';
+    // Reset búsqueda
     searchInput.value = '';
     resultsEl.innerHTML = '';
+    // Reset estado
     state.car = null;
     state.photos = [];
     state.selected = [];
+    state.procedencia = null;
+    // Reset campos del formulario
+    ['f-marca','f-modelo','f-anio','f-version','f-precio','f-km'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    document.getElementById('f-oferta-label').value = 'PRECIO';
+    document.getElementById('f-plazo').value         = '60 meses';
+    document.getElementById('f-tasa').value          = '1%';
+    document.getElementById('f-tasa-label').value    = 'Tasa mensual desde';
+    document.getElementById('f-registro-display').textContent = '—';
+    document.getElementById('photo-grid').innerHTML  = '';
+    document.getElementById('photo-count').textContent = '';
+    // Reset plantilla seleccionada
+    document.querySelectorAll('.tpl-thumb').forEach(t => t.classList.remove('active'));
+    document.querySelector('[data-tpl="1"]').classList.add('active');
+    state.template = 1;
     showStep('step-search');
   });
 </script>

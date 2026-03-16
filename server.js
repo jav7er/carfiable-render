@@ -143,9 +143,9 @@ const generateHTML = (data) => {
           ${otherImages.map(img => `<div style="flex:1;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:#1f2937;"><img src="${img}" style="width:100%;height:100%;object-fit:cover;" class="unskew"></div>`).join('')}
         </div>
       </div>
-      <div style="display:flex;align-items:center;gap:20px;background:#3865E9;border-radius:60px;padding:22px 56px;margin-bottom:32px;">
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;background:#3865E9;border-radius:60px;padding:22px 56px;margin-bottom:32px;">
         <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:white;flex-shrink:0;">${WA_ICON}</svg>
-        <span style="font-size:52px;font-weight:900;color:white;">${data.telefono}</span>
+        <span style="font-size:52px;font-weight:900;color:white;">${FIXED_PHONE}</span>
       </div>
       <p style="font-size:22px;color:rgba(255,255,255,0.3);font-weight:500;">*Aplican Restricciones.</p>
     </div>
@@ -153,6 +153,9 @@ const generateHTML = (data) => {
 </body>
 </html>`;
 };
+
+// Teléfono fijo en todas las plantillas
+const FIXED_PHONE = '656 121 0910';
 
 // Lucide icons (inline SVG)
 const GAUGE_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>`;
@@ -264,10 +267,10 @@ const generatePen1 = (data) => {
     ${kmSectionHTML(kmInfo, altaRotacion, registro, plazo, tasaLabel, tasa, 944, false)}
   </div>
 
-  <!-- Phone: on photo strips with dark gradient backing -->
-  <div style="position:absolute;left:70px;top:1490px;display:flex;align-items:center;gap:14px;z-index:10;">
+  <!-- Phone: centrado sobre photo strips -->
+  <div style="position:absolute;left:0;right:0;top:1490px;display:flex;align-items:center;justify-content:center;gap:14px;z-index:10;">
     <svg viewBox="0 0 24 24" style="width:34px;height:34px;fill:#25D366;flex-shrink:0;">${WA_ICON}</svg>
-    <span style="font-family:'Inter',sans-serif;font-size:38px;font-weight:700;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.9);">${data.telefono || ''}</span>
+    <span style="font-family:'Inter',sans-serif;font-size:38px;font-weight:700;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.9);">${FIXED_PHONE}</span>
   </div>
 
   <!-- Disclaimer -->
@@ -321,10 +324,10 @@ const generatePen2 = (data) => {
     ${kmSectionHTML(kmInfo, altaRotacion, registro, plazo, tasaLabel, tasa, 910, false)}
   </div>
 
-  <!-- Phone -->
-  <div style="position:absolute;left:85px;top:1640px;display:flex;align-items:center;gap:14px;">
+  <!-- Phone centrado -->
+  <div style="position:absolute;left:0;right:0;top:1640px;display:flex;align-items:center;justify-content:center;gap:14px;">
     <svg viewBox="0 0 24 24" style="width:36px;height:36px;fill:#25D366;flex-shrink:0;">${WA_ICON}</svg>
-    <span style="font-family:'Inter',sans-serif;font-size:40px;font-weight:700;color:#fff;">${data.telefono || ''}</span>
+    <span style="font-family:'Inter',sans-serif;font-size:40px;font-weight:700;color:#fff;">${FIXED_PHONE}</span>
   </div>
 
   <!-- Disclaimer -->
@@ -389,10 +392,10 @@ const generatePen3 = (data) => {
     ${infoBoxHTML(marca, modelo, version, anio, ofertaLabel, precio)}
   </div>
 
-  <!-- Phone -->
-  <div style="position:absolute;left:70px;top:1740px;display:flex;align-items:center;gap:14px;">
+  <!-- Phone centrado -->
+  <div style="position:absolute;left:0;right:0;top:1740px;display:flex;align-items:center;justify-content:center;gap:14px;">
     <svg viewBox="0 0 24 24" style="width:32px;height:32px;fill:#25D366;flex-shrink:0;">${WA_ICON}</svg>
-    <span style="font-family:'Inter',sans-serif;font-size:36px;font-weight:700;color:#fff;">${data.telefono || ''}</span>
+    <span style="font-family:'Inter',sans-serif;font-size:36px;font-weight:700;color:#fff;">${FIXED_PHONE}</span>
   </div>
 
   <!-- Disclaimer -->
