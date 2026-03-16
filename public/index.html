@@ -706,15 +706,22 @@
     document.getElementById('f-oferta-label').value = 'PRECIO';
 
     // Procedencia / tipo de registro — campo real de la API: registration_type
-    const procedencia = (
+    const REGISTRO_LABELS = {
+      'fronterizo':         'Fronterizo',
+      'nacional_agencia':   'Mexicano de agencia',
+      'nacional_pedimento': 'Nacional Pedimento',
+      'nacional_decreto':   'Nacional Decreto'
+    };
+    const rawRegistro = (
       car.registration_type || car.procedencia || car.registro ||
-      car.specs?.registration_type || car.specs?.Procedencia || 'MEXICANO DE AGENCIA'
-    ).toUpperCase().trim();
+      car.specs?.registration_type || car.specs?.Procedencia || ''
+    ).toLowerCase().trim();
+    const procedencia = REGISTRO_LABELS[rawRegistro] || (rawRegistro ? rawRegistro.toUpperCase() : 'MEXICANO DE AGENCIA');
     state.procedencia = procedencia;
     document.getElementById('f-registro-display').textContent = procedencia;
 
     // Financiamiento automático según registro
-    const esMexAgencia = procedencia.includes('MEXICAN') && procedencia.includes('AGENCIA');
+    const esMexAgencia = rawRegistro === 'nacional_agencia';
     document.getElementById('f-plazo').value      = esMexAgencia ? '60 meses' : '48 meses';
     document.getElementById('f-tasa').value       = esMexAgencia ? '1%' : '2%';
     document.getElementById('f-tasa-label').value = 'Tasa mensual desde';
