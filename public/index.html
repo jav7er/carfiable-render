@@ -224,17 +224,38 @@
 
       <!-- Campos editables -->
       <div class="space-y-4 mb-8">
-        <div>
-          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Año</label>
-          <input id="f-anio" type="number" class="cf-input" placeholder="2022">
+        <div class="flex gap-3">
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Marca</label>
+            <input id="f-marca" type="text" class="cf-input" placeholder="Toyota">
+          </div>
+          <div style="flex:2">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Modelo</label>
+            <input id="f-modelo" type="text" class="cf-input" placeholder="Tacoma">
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Modelo</label>
-          <input id="f-modelo" type="text" class="cf-input" placeholder="Mustang GT">
+        <div class="flex gap-3">
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Año</label>
+            <input id="f-anio" type="number" class="cf-input" placeholder="2022">
+          </div>
+          <div style="flex:2">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Versión / Trim</label>
+            <input id="f-version" type="text" class="cf-input" placeholder="TRD Sport">
+          </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Versión / Trim</label>
-          <input id="f-version" type="text" class="cf-input" placeholder="Premium AWD">
+        <div class="flex gap-3">
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Kilometraje</label>
+            <input id="f-km" type="number" class="cf-input" placeholder="45000">
+          </div>
+          <div class="flex-1">
+            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Etiqueta precio</label>
+            <select id="f-oferta-label" class="cf-input" style="cursor:pointer;">
+              <option value="PRECIO">PRECIO</option>
+              <option value="ENGANCHE">ENGANCHE</option>
+            </select>
+          </div>
         </div>
         <div>
           <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Precio (MXN)</label>
@@ -244,6 +265,30 @@
           <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">WhatsApp</label>
           <input id="f-telefono" type="tel" class="cf-input" placeholder="55 1234 5678" maxlength="20" value="656 1210910">
         </div>
+
+        <!-- Opciones de financiamiento -->
+        <details class="border border-[#2d3748] rounded-xl overflow-hidden">
+          <summary class="flex items-center justify-between px-4 py-3 cursor-pointer text-xs font-bold text-gray-500 uppercase tracking-wider select-none hover:text-gray-300">
+            Opciones de financiamiento
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-4 pb-4 pt-2 space-y-3 bg-[#1a2030]">
+            <div class="flex gap-3">
+              <div class="flex-1">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Plazo</label>
+                <input id="f-plazo" type="text" class="cf-input" value="60 meses" placeholder="60 meses">
+              </div>
+              <div class="flex-1">
+                <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Tasa mensual</label>
+                <input id="f-tasa" type="text" class="cf-input" value="1%" placeholder="1%">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">Etiqueta tasa</label>
+              <input id="f-tasa-label" type="text" class="cf-input" value="Tasa mensual desde" placeholder="Tasa mensual desde">
+            </div>
+          </div>
+        </details>
       </div>
 
       <!-- Fotos -->
@@ -282,87 +327,101 @@
             <div class="tpl-label">Dark Cinema</div>
           </div>
 
-          <!-- T2: Frame Box -->
+          <!-- T2: Pen1 — Info-box + Fotos + Barra -->
           <div class="tpl-thumb" data-tpl="2">
-            <div class="tpl-preview" style="background:#111;position:relative;">
-              <!-- Marco blanco -->
-              <div style="position:absolute;top:18%;left:8%;right:8%;height:40%;border:1.5px solid rgba(255,255,255,0.7);border-radius:2px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;">
-                <div style="width:50%;height:4px;background:white;border-radius:2px;"></div>
-                <div style="width:30%;height:3px;background:#3865E9;border-radius:2px;"></div>
-                <div style="width:70%;height:2px;background:rgba(255,255,255,0.2);margin-top:4px;"></div>
-                <div style="width:55%;height:5px;background:rgba(255,255,255,0.8);border-radius:2px;margin-top:2px;align-self:flex-end;margin-right:10%;"></div>
+            <div class="tpl-preview" style="background:#0a0e1a;position:relative;overflow:hidden;">
+              <!-- Logo -->
+              <div style="position:absolute;top:5%;left:50%;transform:translateX(-50%);width:30%;height:4px;background:rgba(255,255,255,0.5);border-radius:2px;"></div>
+              <!-- Info-box bordeado -->
+              <div style="position:absolute;top:16%;left:6%;right:6%;height:32%;border:1.5px solid rgba(255,255,255,0.7);border-radius:2px;display:flex;flex-direction:column;gap:2px;padding:5% 6%;">
+                <div style="height:2px;background:rgba(255,255,255,0.4);border-radius:1px;width:35%;"></div>
+                <div style="height:6px;background:#fff;border-radius:1px;width:75%;"></div>
+                <div style="height:2px;background:rgba(255,255,255,0.5);border-radius:1px;width:50%;margin-top:2px;"></div>
+                <div style="position:absolute;top:15%;right:6%;display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+                  <div style="height:3px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;width:32px;"></div>
+                  <div style="height:5px;background:#fff;border-radius:1px;width:44px;"></div>
+                </div>
               </div>
-              <!-- Barra inferior dark -->
-              <div style="position:absolute;bottom:0;left:0;right:0;height:33%;background:#111827;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8%;">
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
-                <div style="width:1px;height:30px;background:rgba(255,255,255,0.15);"></div>
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
-                <div style="width:1px;height:30px;background:rgba(255,255,255,0.15);"></div>
-                <div style="flex:1;height:3px;background:rgba(255,255,255,0.3);border-radius:1px;"></div>
+              <!-- Foto principal -->
+              <div style="position:absolute;top:50%;left:0;right:0;height:22%;background:linear-gradient(135deg,#1a2540,#243050);"></div>
+              <!-- 2 strips -->
+              <div style="position:absolute;top:74%;left:0;right:0;height:10%;display:flex;gap:1px;">
+                <div style="flex:1;background:#1f2937;"></div>
+                <div style="flex:1;background:#243050;"></div>
+              </div>
+              <!-- Barra dark -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:16%;background:#0a0e1a;display:flex;align-items:center;justify-content:center;gap:4px;padding:0 6%;">
+                <div style="flex:1;height:3px;background:rgba(255,255,255,0.25);border-radius:1px;"></div>
+                <div style="width:1px;height:18px;background:rgba(255,255,255,0.6);"></div>
+                <div style="flex:1;height:3px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;"></div>
               </div>
             </div>
-            <div class="tpl-label">Frame Box</div>
+            <div class="tpl-label">Pen 1</div>
           </div>
 
-          <!-- T3: Split Blue -->
+          <!-- T3: Pen2 — Foto fondo media + Barra sólida -->
           <div class="tpl-thumb" data-tpl="3">
-            <div class="tpl-preview" style="background:#111827;position:relative;overflow:hidden;">
-              <!-- Foto derecha clipeada -->
-              <div style="position:absolute;inset:0;clip-path:polygon(44% 0%,100% 0%,100% 100%,32% 100%);background:linear-gradient(135deg,#1a2540,#2a3a60);"></div>
-              <!-- Franja azul diagonal -->
-              <div style="position:absolute;inset:0;clip-path:polygon(38% 0%,50% 0%,38% 100%,26% 100%);background:linear-gradient(160deg,#3bd8ff,#3b61ff);"></div>
-              <!-- Texto izquierdo -->
-              <div style="position:absolute;top:15%;left:6%;width:35%;display:flex;flex-direction:column;gap:2px;">
+            <div class="tpl-preview" style="background:#0a0e1a;position:relative;overflow:hidden;">
+              <!-- Logo -->
+              <div style="position:absolute;top:5%;left:50%;transform:translateX(-50%);width:30%;height:4px;background:rgba(255,255,255,0.5);border-radius:2px;"></div>
+              <!-- Info-box -->
+              <div style="position:absolute;top:14%;left:6%;right:6%;height:28%;border:1.5px solid rgba(255,255,255,0.7);border-radius:2px;padding:4% 6%;">
+                <div style="height:5px;background:#fff;border-radius:1px;width:68%;"></div>
+                <div style="height:2px;background:rgba(255,255,255,0.4);border-radius:1px;width:40%;margin-top:3px;"></div>
+                <div style="position:absolute;top:15%;right:6%;display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+                  <div style="height:3px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;width:28px;"></div>
+                  <div style="height:5px;background:#fff;border-radius:1px;width:40px;"></div>
+                </div>
+              </div>
+              <!-- Foto como fondo (zona media) -->
+              <div style="position:absolute;top:44%;left:0;right:0;bottom:32%;background:linear-gradient(135deg,#243050,#1a2540);"></div>
+              <!-- Barra sólida dark -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:32%;background:#0a0e1a;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2px;padding:0 6%;">
                 <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:80%;"></div>
-                <div style="height:2px;background:rgba(255,255,255,0.2);border-radius:1px;width:60%;"></div>
+                <div style="width:100%;height:1px;background:rgba(255,255,255,0.7);margin:3px 0;"></div>
+                <div style="display:flex;align-items:center;gap:4px;width:100%;justify-content:center;">
+                  <div style="flex:1;height:4px;background:rgba(255,255,255,0.4);border-radius:1px;"></div>
+                  <div style="width:1px;height:16px;background:rgba(255,255,255,0.7);"></div>
+                  <div style="flex:1;height:4px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;"></div>
+                </div>
               </div>
-              <!-- Modelo enorme -->
-              <div style="position:absolute;top:30%;left:6%;width:90%;">
-                <div style="height:12px;background:rgba(255,255,255,0.85);border-radius:2px;width:70%;"></div>
-                <div style="height:7px;background:rgba(255,255,255,0.4);border-radius:2px;width:50%;margin-top:3px;"></div>
-              </div>
-              <!-- Precio gradient text -->
-              <div style="position:absolute;bottom:25%;left:6%;width:40%;">
-                <div style="height:4px;background:linear-gradient(90deg,#3bd8ff,#3b61ff);border-radius:2px;width:90%;"></div>
-                <div style="height:3px;background:rgba(255,255,255,0.5);border-radius:2px;width:65%;margin-top:3px;"></div>
-              </div>
-              <!-- Badge WA -->
-              <div style="position:absolute;bottom:12%;left:6%;background:#3865E9;border-radius:12px;padding:3px 8px;width:50%;height:7%;"></div>
             </div>
-            <div class="tpl-label">Split Blue</div>
+            <div class="tpl-label">Pen 2</div>
           </div>
 
-          <!-- T4: Grid Collage -->
+          <!-- T4: Pen3 — Split fotos arriba + Info-box abajo -->
           <div class="tpl-thumb" data-tpl="4">
-            <div class="tpl-preview" style="background:#0a0c12;position:relative;overflow:hidden;">
-              <!-- Grid 3x2 arriba (40%) -->
-              <div style="position:absolute;top:0;left:0;right:0;height:40%;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr);gap:1px;background:#0a0c12;">
-                <div style="background:#1f2937;"></div>
-                <div style="background:#243050;"></div>
-                <div style="background:#1a2540;"></div>
-                <div style="background:#1e2440;"></div>
-                <div style="background:#1f2937;"></div>
-                <div style="background:#243050;"></div>
+            <div class="tpl-preview" style="background:#0a0e1a;position:relative;overflow:hidden;">
+              <!-- Top split 2 fotos -->
+              <div style="position:absolute;top:0;left:0;right:0;height:22%;display:flex;gap:1px;">
+                <div style="flex:1;background:#1a2540;"></div>
+                <div style="flex:1;background:#243050;"></div>
               </div>
-              <!-- Hero foto abajo (60%) -->
-              <div style="position:absolute;top:40%;left:0;right:0;bottom:0;background:linear-gradient(135deg,#1a2540,#0a1020);">
-                <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 30%,rgba(0,0,0,0.9) 100%);"></div>
-              </div>
-              <!-- Barra info -->
-              <div style="position:absolute;bottom:0;left:0;right:0;height:22%;background:rgba(10,12,18,0.9);display:flex;align-items:center;gap:4px;padding:0 6%;">
-                <div style="flex:2;display:flex;flex-direction:column;gap:2px;">
-                  <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:60%;"></div>
-                  <div style="height:4px;background:rgba(255,255,255,0.7);border-radius:1px;width:90%;"></div>
+              <!-- Logo centrado sobre el split -->
+              <div style="position:absolute;top:3%;left:50%;transform:translateX(-50%);width:24%;height:3px;background:rgba(255,255,255,0.5);border-radius:2px;"></div>
+              <!-- Foto hero -->
+              <div style="position:absolute;top:23%;left:0;right:0;height:28%;background:linear-gradient(135deg,#1f2937,#1a2540);"></div>
+              <!-- Info-box -->
+              <div style="position:absolute;top:53%;left:6%;right:6%;height:28%;border:1.5px solid rgba(255,255,255,0.7);border-radius:2px;padding:4% 6%;">
+                <div style="height:5px;background:#fff;border-radius:1px;width:68%;"></div>
+                <div style="height:2px;background:rgba(255,255,255,0.4);border-radius:1px;width:40%;margin-top:3px;"></div>
+                <div style="position:absolute;top:15%;right:6%;display:flex;flex-direction:column;align-items:flex-end;gap:2px;">
+                  <div style="height:3px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;width:28px;"></div>
+                  <div style="height:5px;background:#fff;border-radius:1px;width:40px;"></div>
                 </div>
-                <div style="width:1px;height:20px;background:rgba(255,255,255,0.12);"></div>
-                <div style="flex:1.3;display:flex;flex-direction:column;gap:2px;">
-                  <div style="height:2px;background:rgba(255,255,255,0.4);border-radius:1px;"></div>
-                  <div style="height:2px;background:#3865E9;border-radius:1px;width:70%;"></div>
-                  <div style="height:2px;background:rgba(255,255,255,0.3);border-radius:1px;width:80%;"></div>
+              </div>
+              <!-- Barra km + financiamiento -->
+              <div style="position:absolute;bottom:0;left:0;right:0;height:18%;background:#0a0e1a;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:0 6%;">
+                <div style="height:2px;background:rgba(255,255,255,0.25);border-radius:1px;width:70%;"></div>
+                <div style="width:100%;height:1px;background:rgba(255,255,255,0.6);margin:2px 0;"></div>
+                <div style="display:flex;align-items:center;gap:4px;width:100%;justify-content:center;">
+                  <div style="flex:1;height:3px;background:rgba(255,255,255,0.35);border-radius:1px;"></div>
+                  <div style="width:1px;height:14px;background:rgba(255,255,255,0.6);"></div>
+                  <div style="flex:1;height:3px;background:linear-gradient(90deg,#4F6BFF,#00C6FF);border-radius:1px;"></div>
                 </div>
               </div>
             </div>
-            <div class="tpl-label">Grid Collage</div>
+            <div class="tpl-label">Pen 3</div>
           </div>
 
         </div>
@@ -544,17 +603,20 @@
   }
 
   function populateForm(car) {
+    document.getElementById('f-marca').value   = car.make  || car.marca   || '';
     document.getElementById('f-anio').value    = car.year  || car.anio    || '';
-    document.getElementById('f-modelo').value  = [car.make, car.model || car.modelo].filter(Boolean).join(' ');
-    // version viene en specs.Trim o specs.Submodel
+    document.getElementById('f-modelo').value  = car.model || car.modelo  || '';
     document.getElementById('f-version').value = car.version || car.trim
       || car.specs?.Submodel || car.specs?.Trim || '';
-    // price puede venir como string "610000.00"
     document.getElementById('f-precio').value  = parseFloat(car.price || car.precio) || '';
     document.getElementById('f-telefono').value = '656 1210910';
+    // km desde API (puede venir como mileage, km, kilometraje, specs.Mileage)
+    const km = car.km || car.kilometraje || car.mileage
+      || parseInt(car.specs?.Mileage || car.specs?.Odometer || 0) || '';
+    document.getElementById('f-km').value = km;
 
     state.photos   = normalizePhotos(car);
-    state.selected = [...state.photos];   // todas seleccionadas por defecto
+    state.selected = [...state.photos];
 
     renderPhotoGrid();
     updateGenerateBtn();
@@ -611,7 +673,7 @@
   }
 
   // Actualizar botón en tiempo real al editar campos
-  ['f-telefono','f-modelo','f-precio','f-anio','f-version'].forEach(id => {
+  ['f-telefono','f-marca','f-modelo','f-precio','f-anio','f-version','f-km'].forEach(id => {
     document.getElementById(id).addEventListener('input', updateGenerateBtn);
   });
 
@@ -631,13 +693,19 @@
     btn.innerHTML = `<span class="spinner"></span> Generando...`;
 
     const payload = {
-      anio:     parseInt(document.getElementById('f-anio').value)  || 0,
-      modelo:   document.getElementById('f-modelo').value.trim(),
-      version:  document.getElementById('f-version').value.trim(),
-      precio:   parseFloat(document.getElementById('f-precio').value) || 0,
-      telefono: document.getElementById('f-telefono').value.trim(),
-      exterior: state.selected,
-      template: state.template
+      marca:      document.getElementById('f-marca').value.trim(),
+      anio:       parseInt(document.getElementById('f-anio').value) || 0,
+      modelo:     document.getElementById('f-modelo').value.trim(),
+      version:    document.getElementById('f-version').value.trim(),
+      precio:     parseFloat(document.getElementById('f-precio').value) || 0,
+      telefono:   document.getElementById('f-telefono').value.trim(),
+      km:         parseInt(document.getElementById('f-km').value) || 0,
+      ofertaLabel: document.getElementById('f-oferta-label').value,
+      plazo:      document.getElementById('f-plazo').value.trim()      || '60 meses',
+      tasa:       document.getElementById('f-tasa').value.trim()       || '1%',
+      tasaLabel:  document.getElementById('f-tasa-label').value.trim() || 'Tasa mensual desde',
+      exterior:   state.selected,
+      template:   state.template
     };
 
     if (!payload.modelo || !payload.precio || !payload.telefono) {

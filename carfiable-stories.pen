@@ -3,1154 +3,10 @@
   "children": [
     {
       "type": "frame",
-      "id": "bi8Au",
-      "x": 0,
-      "y": 0,
-      "name": "Story - Toyota Tacoma 2022",
-      "clip": true,
-      "width": 1080,
-      "height": 1920,
-      "fill": "#0a0e1a",
-      "layout": "none",
-      "children": [
-        {
-          "type": "rectangle",
-          "id": "cEHUz",
-          "x": 0,
-          "y": -2.2737367544323206e-13,
-          "name": "car-photo-bg",
-          "metadata": {
-            "type": "unsplash",
-            "username": "caioportela",
-            "link": "https://unsplash.com/@caioportela",
-            "author": "Caio Portela"
-          },
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "images/hd_699ddadba72f9.webp",
-            "mode": "fill"
-          },
-          "width": 1080,
-          "height": 1920,
-          "stroke": {
-            "align": "inside",
-            "thickness": 1
-          }
-        },
-        {
-          "type": "rectangle",
-          "id": "oSjm3",
-          "x": 0,
-          "y": 0,
-          "name": "grad-top",
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 180,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#000000D5",
-                "position": 0
-              },
-              {
-                "color": "#00000040",
-                "position": 0.7
-              },
-              {
-                "color": "#00000000",
-                "position": 1
-              }
-            ]
-          },
-          "width": 1080,
-          "height": 672
-        },
-        {
-          "type": "rectangle",
-          "id": "1ODMS",
-          "x": 0,
-          "y": 1050,
-          "name": "grad-bot",
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 0,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#000000F5",
-                "position": 0
-              },
-              {
-                "color": "#000000C0",
-                "position": 0.6
-              },
-              {
-                "color": "#00000000",
-                "position": 1
-              }
-            ]
-          },
-          "width": 1080,
-          "height": 870
-        },
-        {
-          "type": "frame",
-          "id": "rF6u4",
-          "x": 64,
-          "y": 360,
-          "name": "info-box",
-          "width": 952,
-          "height": 240,
-          "fill": "#00000000",
-          "cornerRadius": 6,
-          "stroke": {
-            "align": "inside",
-            "thickness": 2,
-            "fill": "#FFFFFFCC"
-          },
-          "layout": "none",
-          "children": [
-            {
-              "type": "text",
-              "id": "AYudx",
-              "x": 28,
-              "y": 22,
-              "name": "make",
-              "fill": "#FFFFFF",
-              "content": "TOYOTA",
-              "fontFamily": "Inter",
-              "fontSize": 32,
-              "fontWeight": "600",
-              "letterSpacing": 3
-            },
-            {
-              "type": "text",
-              "id": "iBjyJ",
-              "x": 28,
-              "y": 62,
-              "name": "model",
-              "fill": "#FFFFFF",
-              "content": "TACOMA",
-              "lineHeight": 0.9,
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 96,
-              "fontWeight": "800"
-            },
-            {
-              "type": "text",
-              "id": "WGt52",
-              "x": 28,
-              "y": 168,
-              "name": "trim",
-              "fill": "#FFFFFFAA",
-              "content": "TRD SPORT  ·  2022",
-              "fontFamily": "Inter",
-              "fontSize": 30,
-              "fontWeight": "500",
-              "letterSpacing": 1
-            },
-            {
-              "type": "text",
-              "id": "fOIqe",
-              "x": 573,
-              "y": 29,
-              "name": "price-small",
-              "fill": "#ffffffbf",
-              "content": "Antes",
-              "fontFamily": "Inter",
-              "fontSize": 22,
-              "fontWeight": "normal",
-              "letterSpacing": 1
-            },
-            {
-              "type": "text",
-              "id": "Brk6P",
-              "x": 573,
-              "y": 57,
-              "name": "price-value",
-              "fill": "#ffffffbf",
-              "content": "$820,000",
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 38,
-              "fontWeight": "600"
-            },
-            {
-              "type": "frame",
-              "id": "ruitG",
-              "x": 574,
-              "y": 110,
-              "name": "oferta-badge",
-              "fill": {
-                "type": "gradient",
-                "gradientType": "linear",
-                "enabled": true,
-                "rotation": 90,
-                "size": {
-                  "height": 1
-                },
-                "colors": [
-                  {
-                    "color": "#4F6BFF",
-                    "position": 0
-                  },
-                  {
-                    "color": "#00C6FF",
-                    "position": 1
-                  }
-                ]
-              },
-              "cornerRadius": 4,
-              "gap": 8,
-              "padding": [
-                4,
-                12
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "Vs89Z",
-                  "name": "ofertaIcon",
-                  "width": 20,
-                  "height": 20,
-                  "iconFontName": "tag",
-                  "iconFontFamily": "lucide",
-                  "fill": "#FFFFFF"
-                },
-                {
-                  "type": "text",
-                  "id": "8aPjq",
-                  "name": "ofertaLabel",
-                  "fill": "#FFFFFF",
-                  "content": "OFERTA",
-                  "fontFamily": "Inter",
-                  "fontSize": 20,
-                  "fontWeight": "700",
-                  "letterSpacing": 2
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "90q1N",
-              "x": 568,
-              "y": 147,
-              "name": "offer-price-big",
-              "fill": "#ffffffff",
-              "content": "$784,000",
-              "lineHeight": 0.9,
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 72,
-              "fontWeight": "800"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "AVPct",
-          "x": 64,
-          "y": 1200,
-          "name": "enganche-badge",
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 90,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#4F6BFF",
-                "position": 0
-              },
-              {
-                "color": "#00C6FF",
-                "position": 1
-              }
-            ]
-          },
-          "cornerRadius": 50,
-          "gap": 12,
-          "padding": [
-            14,
-            28
-          ],
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "af62x",
-              "name": "engancheIcon",
-              "width": 30,
-              "height": 30,
-              "iconFontName": "tag",
-              "iconFontFamily": "lucide",
-              "fill": "#FFFFFF"
-            },
-            {
-              "type": "text",
-              "id": "0EuGl",
-              "name": "engancheTxt",
-              "fill": "#FFFFFF",
-              "content": "ENGANCHE DESDE 10%",
-              "fontFamily": "Inter",
-              "fontSize": 28,
-              "fontWeight": "700",
-              "letterSpacing": 2
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "32ofa",
-          "x": 64,
-          "y": 1290,
-          "name": "km-row",
-          "width": 952,
-          "height": 48,
-          "gap": 16,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "UxrNX",
-              "name": "kmIcon",
-              "width": 30,
-              "height": 30,
-              "iconFontName": "gauge",
-              "iconFontFamily": "lucide",
-              "fill": "#FFFFFFAA"
-            },
-            {
-              "type": "text",
-              "id": "sRxMU",
-              "name": "kmTxt",
-              "fill": "#FFFFFFAA",
-              "content": "67,990 km  ·  V6 3.5L  ·  4WD  ·  Color Azul",
-              "fontFamily": "Inter",
-              "fontSize": 28,
-              "fontWeight": "normal"
-            }
-          ]
-        },
-        {
-          "type": "rectangle",
-          "id": "DBoUy",
-          "x": 64,
-          "y": 1356,
-          "name": "divider",
-          "fill": "#FFFFFF25",
-          "width": 952,
-          "height": 2
-        },
-        {
-          "type": "frame",
-          "id": "mTGb7",
-          "x": 64,
-          "y": 1374,
-          "name": "fin-row",
-          "width": 952,
-          "height": 148,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "7jlAY",
-              "name": "fin-col1",
-              "width": "fill_container",
-              "height": "fill_container",
-              "layout": "vertical",
-              "gap": 8,
-              "justifyContent": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "Gvyto",
-                  "name": "c1val",
-                  "fill": "#FFFFFFBB",
-                  "content": "Plazos hasta",
-                  "fontFamily": "Inter",
-                  "fontSize": 24,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "IhD7P",
-                  "name": "c1big",
-                  "fill": "#FFFFFF",
-                  "content": "60 meses",
-                  "lineHeight": 1,
-                  "fontFamily": "Plus Jakarta Sans",
-                  "fontSize": 44,
-                  "fontWeight": "800"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "rwojN",
-              "name": "col-div1",
-              "fill": "#FFFFFF30",
-              "width": 2,
-              "height": 100
-            },
-            {
-              "type": "frame",
-              "id": "CWJh8",
-              "name": "fin-col2",
-              "width": "fill_container",
-              "height": "fill_container",
-              "layout": "vertical",
-              "gap": 8,
-              "justifyContent": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "p76hT",
-                  "name": "c2val",
-                  "fill": "#FFFFFFBB",
-                  "content": "Enganche desde",
-                  "fontFamily": "Inter",
-                  "fontSize": 24,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "rgnxa",
-                  "name": "c2big",
-                  "fill": {
-                    "type": "gradient",
-                    "gradientType": "linear",
-                    "enabled": true,
-                    "rotation": 90,
-                    "size": {
-                      "height": 1
-                    },
-                    "colors": [
-                      {
-                        "color": "#4F6BFF",
-                        "position": 0
-                      },
-                      {
-                        "color": "#00C6FF",
-                        "position": 1
-                      }
-                    ]
-                  },
-                  "content": "10%",
-                  "lineHeight": 1,
-                  "fontFamily": "Plus Jakarta Sans",
-                  "fontSize": 44,
-                  "fontWeight": "800"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "Ugaac",
-              "name": "col-div2",
-              "fill": "#FFFFFF30",
-              "width": 2,
-              "height": 100
-            },
-            {
-              "type": "frame",
-              "id": "3c2kN",
-              "name": "fin-col3",
-              "width": "fill_container",
-              "height": "fill_container",
-              "layout": "vertical",
-              "gap": 8,
-              "justifyContent": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "aCbiw",
-                  "name": "c3val",
-                  "fill": "#FFFFFFBB",
-                  "content": "Financiamiento",
-                  "fontFamily": "Inter",
-                  "fontSize": 24,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "text",
-                  "id": "xzTfS",
-                  "name": "c3big",
-                  "fill": "#FFFFFF",
-                  "content": "Disponible",
-                  "lineHeight": 1,
-                  "fontFamily": "Plus Jakarta Sans",
-                  "fontSize": 44,
-                  "fontWeight": "800"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "ybwA0",
-          "x": 0,
-          "y": 1718,
-          "name": "footer-bar",
-          "width": 1080,
-          "height": 92,
-          "fill": "#00000090",
-          "padding": [
-            0,
-            64
-          ],
-          "justifyContent": "space_between",
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "frame",
-              "id": "TzUKK",
-              "name": "logo-group-footer",
-              "height": 42,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "cz20u",
-                  "name": "footer-logo-car",
-                  "fill": {
-                    "type": "gradient",
-                    "gradientType": "linear",
-                    "enabled": true,
-                    "rotation": 90,
-                    "size": {
-                      "height": 1
-                    },
-                    "colors": [
-                      {
-                        "color": "#4F8EFF",
-                        "position": 0
-                      },
-                      {
-                        "color": "#00C6FF",
-                        "position": 1
-                      }
-                    ]
-                  },
-                  "content": "car",
-                  "fontFamily": "Plus Jakarta Sans",
-                  "fontSize": 34,
-                  "fontWeight": "800"
-                },
-                {
-                  "type": "text",
-                  "id": "hzeUy",
-                  "name": "footer-logo-fiable",
-                  "fill": "#FFFFFF",
-                  "content": "fiable",
-                  "fontFamily": "Plus Jakarta Sans",
-                  "fontSize": 34,
-                  "fontWeight": "800"
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "bBB5P",
-              "name": "footerWeb",
-              "fill": "#FFFFFFBB",
-              "content": "carfiable.mx",
-              "fontFamily": "Inter",
-              "fontSize": 28,
-              "fontWeight": "600"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "N135W",
-          "x": 64,
-          "y": 1532,
-          "name": "verified-row",
-          "width": 952,
-          "height": 52,
-          "gap": 20,
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "7sNnG",
-              "name": "verIcon",
-              "width": 36,
-              "height": 36,
-              "iconFontName": "shield-check",
-              "iconFontFamily": "lucide",
-              "fill": "#22C55E"
-            },
-            {
-              "type": "text",
-              "id": "AaE4K",
-              "name": "verTxt",
-              "fill": "#FFFFFF",
-              "content": "Legalmente Verificado",
-              "fontFamily": "Inter",
-              "fontSize": 30,
-              "fontWeight": "600"
-            },
-            {
-              "type": "ellipse",
-              "id": "iJZca",
-              "name": "verDot",
-              "fill": "#FFFFFF50",
-              "width": 6,
-              "height": 6
-            },
-            {
-              "type": "icon_font",
-              "id": "5zVhK",
-              "name": "inspIcon",
-              "width": 36,
-              "height": 36,
-              "iconFontName": "wrench",
-              "iconFontFamily": "lucide",
-              "fill": "#4FC3FF"
-            },
-            {
-              "type": "text",
-              "id": "Yk3uy",
-              "name": "inspTxt",
-              "fill": "#FFFFFF",
-              "content": "Inspección Mecánica",
-              "fontFamily": "Inter",
-              "fontSize": 30,
-              "fontWeight": "600"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "jPkDU",
-          "x": 64,
-          "y": 1592,
-          "name": "cta-box",
-          "width": 952,
-          "height": 96,
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 90,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#4F6BFF",
-                "position": 0
-              },
-              {
-                "color": "#00C6FF",
-                "position": 1
-              }
-            ]
-          },
-          "cornerRadius": 12,
-          "justifyContent": "center",
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "icon_font",
-              "id": "TVmmc",
-              "name": "ctaIcon",
-              "width": 44,
-              "height": 44,
-              "iconFontName": "message-circle",
-              "iconFontFamily": "lucide",
-              "fill": "#FFFFFF"
-            },
-            {
-              "type": "text",
-              "id": "fzZxq",
-              "name": "ctaTxt",
-              "fill": "#FFFFFF",
-              "content": "Ver este auto en carfiable.mx",
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 36,
-              "fontWeight": "700"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "id": "ZhEwr",
-          "x": 64,
-          "y": 1668,
-          "name": "disclaimer",
-          "fill": "#FFFFFF60",
-          "textGrowth": "fixed-width",
-          "width": 952,
-          "content": "*Aplican restricciones. Precio de lista, sujeto a cambios sin previo aviso.",
-          "fontFamily": "Inter",
-          "fontSize": 20,
-          "fontWeight": "normal"
-        },
-        {
-          "type": "rectangle",
-          "id": "jlMNz",
-          "x": 64,
-          "y": 251.7237163814181,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "images/Asset 2 copy.png",
-            "mode": "fill"
-          },
-          "width": 333,
-          "height": 73
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "2xSaR",
-      "x": 2026,
-      "y": -6,
-      "name": "Story - Toyota Tacoma 2022",
-      "clip": true,
-      "width": 1080,
-      "height": 1920,
-      "fill": "#0a0e1a",
-      "layout": "none",
-      "children": [
-        {
-          "type": "rectangle",
-          "id": "s5lhV",
-          "x": 0,
-          "y": -2.2737367544323206e-13,
-          "name": "car-photo-bg",
-          "metadata": {
-            "type": "unsplash",
-            "username": "caioportela",
-            "link": "https://unsplash.com/@caioportela",
-            "author": "Caio Portela"
-          },
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "images/hd_699ddadba72f9.webp",
-            "mode": "fill"
-          },
-          "width": 1080,
-          "height": 1920,
-          "stroke": {
-            "align": "inside",
-            "thickness": 1
-          }
-        },
-        {
-          "type": "rectangle",
-          "id": "2HtfZ",
-          "x": 0,
-          "y": 0,
-          "name": "grad-top",
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 180,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#000000D5",
-                "position": 0
-              },
-              {
-                "color": "#00000040",
-                "position": 0.7
-              },
-              {
-                "color": "#00000000",
-                "position": 1
-              }
-            ]
-          },
-          "width": 1080,
-          "height": 672
-        },
-        {
-          "type": "rectangle",
-          "id": "MTJww",
-          "x": 0,
-          "y": 1050,
-          "name": "grad-bot",
-          "fill": {
-            "type": "gradient",
-            "gradientType": "linear",
-            "enabled": true,
-            "rotation": 0,
-            "size": {
-              "height": 1
-            },
-            "colors": [
-              {
-                "color": "#000000F5",
-                "position": 0
-              },
-              {
-                "color": "#000000C0",
-                "position": 0.6
-              },
-              {
-                "color": "#00000000",
-                "position": 1
-              }
-            ]
-          },
-          "width": 1080,
-          "height": 870
-        },
-        {
-          "type": "text",
-          "id": "JSb0j",
-          "x": 64,
-          "y": 1743,
-          "name": "disclaimer",
-          "fill": "#ffffffa6",
-          "textGrowth": "fixed-width",
-          "width": 952,
-          "content": "*Aplican restricciones. Condiciones de crédito, enganche, tasa anual, sujeto a cambios de acuerdo a perfil crediticio. Unidad única",
-          "textAlign": "center",
-          "fontFamily": "Inter",
-          "fontSize": 27,
-          "fontWeight": "normal"
-        },
-        {
-          "type": "frame",
-          "id": "nUEXz",
-          "x": 64,
-          "y": 286,
-          "name": "info-box",
-          "width": 952,
-          "height": 240,
-          "fill": "#00000000",
-          "cornerRadius": 6,
-          "stroke": {
-            "align": "inside",
-            "thickness": 2,
-            "fill": "#FFFFFFCC"
-          },
-          "layout": "none",
-          "children": [
-            {
-              "type": "text",
-              "id": "1X4c3",
-              "x": 28,
-              "y": 22,
-              "name": "make",
-              "fill": "#FFFFFF",
-              "content": "TOYOTA",
-              "fontFamily": "Inter",
-              "fontSize": 32,
-              "fontWeight": "600",
-              "letterSpacing": 3
-            },
-            {
-              "type": "text",
-              "id": "7mGbO",
-              "x": 28,
-              "y": 62,
-              "name": "model",
-              "fill": "#FFFFFF",
-              "content": "TACOMA",
-              "lineHeight": 0.9,
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 96,
-              "fontWeight": "800"
-            },
-            {
-              "type": "text",
-              "id": "pHmSR",
-              "x": 28,
-              "y": 168,
-              "name": "trim",
-              "fill": "#ffffffe6",
-              "textGrowth": "fixed-width-height",
-              "width": 489,
-              "height": 52,
-              "content": "TRD SPORT · 2022",
-              "fontFamily": "Inter",
-              "fontSize": 45,
-              "fontWeight": "500",
-              "letterSpacing": 1
-            },
-            {
-              "type": "frame",
-              "id": "TCAar",
-              "x": 560,
-              "y": 37,
-              "name": "oferta-badge",
-              "fill": {
-                "type": "gradient",
-                "gradientType": "linear",
-                "enabled": true,
-                "rotation": 90,
-                "size": {
-                  "height": 1
-                },
-                "colors": [
-                  {
-                    "color": "#4F6BFF",
-                    "position": 0
-                  },
-                  {
-                    "color": "#00C6FF",
-                    "position": 1
-                  }
-                ]
-              },
-              "cornerRadius": 4,
-              "gap": 8,
-              "padding": [
-                4,
-                12
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "guquk",
-                  "name": "ofertaIcon",
-                  "width": 20,
-                  "height": 20,
-                  "iconFontName": "tag",
-                  "iconFontFamily": "lucide",
-                  "fill": "#FFFFFF"
-                },
-                {
-                  "type": "text",
-                  "id": "PQ1Ja",
-                  "name": "ofertaLabel",
-                  "fill": "#FFFFFF",
-                  "content": "ENGANCHE",
-                  "fontFamily": "Inter",
-                  "fontSize": 35,
-                  "fontWeight": "700",
-                  "letterSpacing": 2
-                }
-              ]
-            },
-            {
-              "type": "text",
-              "id": "cPctG",
-              "x": 560,
-              "y": 109,
-              "name": "offer-price-big",
-              "fill": "#ffffffff",
-              "content": "$78,400",
-              "lineHeight": 0.9,
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 85,
-              "fontWeight": "800"
-            }
-          ]
-        },
-        {
-          "type": "rectangle",
-          "id": "OOoxb",
-          "x": 342,
-          "y": 159,
-          "fill": {
-            "type": "image",
-            "enabled": true,
-            "url": "Asset 2.png",
-            "mode": "fill"
-          },
-          "width": 396,
-          "height": 87
-        },
-        {
-          "type": "group",
-          "id": "kpH5o",
-          "x": 84.95689655172418,
-          "y": 1350,
-          "children": [
-            {
-              "type": "rectangle",
-              "id": "r3IYQ",
-              "x": 0,
-              "y": 76.81034482758628,
-              "name": "divider",
-              "fill": "#ffffffe6",
-              "width": 910.0862068965516,
-              "height": 2.3275862068965516
-            },
-            {
-              "type": "frame",
-              "id": "6PWH9",
-              "x": 0,
-              "y": 0,
-              "name": "km-row",
-              "width": 910.0862068965516,
-              "height": 55.86206896551724,
-              "gap": 16,
-              "justifyContent": "center",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "icon_font",
-                  "id": "Obijw",
-                  "name": "kmIcon",
-                  "width": 42,
-                  "height": 42,
-                  "iconFontName": "gauge",
-                  "iconFontFamily": "lucide",
-                  "fill": "#ffffffe6"
-                },
-                {
-                  "type": "text",
-                  "id": "QTLnu",
-                  "name": "kmTxt",
-                  "fill": "#ffffffe6",
-                  "content": "67,990 km  ·  V6 3.5L  ·  4WD",
-                  "fontFamily": "Inter",
-                  "fontSize": 55,
-                  "fontWeight": "normal"
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "nSHwC",
-              "x": 0,
-              "y": 97.75862068965512,
-              "name": "fin-row",
-              "width": 910.0862068965516,
-              "height": 172.24137931034483,
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "RPndt",
-                  "name": "fin-col1",
-                  "width": "fill_container",
-                  "height": "fill_container",
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    25
-                  ],
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "1kp1o",
-                      "name": "c1val",
-                      "fill": "#FFFFFFBB",
-                      "content": "Plazos hasta",
-                      "fontFamily": "Inter",
-                      "fontSize": 40,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "VKNZq",
-                      "name": "c1big",
-                      "fill": "#FFFFFF",
-                      "content": "60 meses",
-                      "lineHeight": 1,
-                      "fontFamily": "Plus Jakarta Sans",
-                      "fontSize": 75,
-                      "fontWeight": "800"
-                    }
-                  ]
-                },
-                {
-                  "type": "rectangle",
-                  "id": "vQctZ",
-                  "name": "col-div1",
-                  "fill": "#ffffffe6",
-                  "width": 2,
-                  "height": 100
-                },
-                {
-                  "type": "frame",
-                  "id": "utLTV",
-                  "name": "fin-col2",
-                  "width": "fill_container",
-                  "height": "fill_container",
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    25
-                  ],
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "6IoXs",
-                      "name": "c2val",
-                      "fill": "#FFFFFFBB",
-                      "content": "Tasa mensual desde",
-                      "fontFamily": "Inter",
-                      "fontSize": 40,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "djtE2",
-                      "name": "c2big",
-                      "fill": {
-                        "type": "gradient",
-                        "gradientType": "linear",
-                        "enabled": true,
-                        "rotation": 90,
-                        "size": {
-                          "height": 1
-                        },
-                        "colors": [
-                          {
-                            "color": "#4F6BFF",
-                            "position": 0
-                          },
-                          {
-                            "color": "#00C6FF",
-                            "position": 1
-                          }
-                        ]
-                      },
-                      "content": "1%",
-                      "lineHeight": 1,
-                      "fontFamily": "Plus Jakarta Sans",
-                      "fontSize": 75,
-                      "fontWeight": "800"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "dmAG7",
-      "x": 3607,
-      "y": -6,
-      "name": "Story - Toyota Tacoma 2022",
+      "x": 4173,
+      "y": -200,
+      "name": "plantilla2",
       "clip": true,
       "width": 1080,
       "height": 1920,
@@ -1161,7 +17,7 @@
           "type": "rectangle",
           "id": "49B3A",
           "x": 0,
-          "y": 0,
+          "y": 344,
           "name": "car-photo-bg",
           "metadata": {
             "type": "unsplash",
@@ -1172,11 +28,11 @@
           "fill": {
             "type": "image",
             "enabled": true,
-            "url": "hd_699ddadba72f9 (1).webp",
+            "url": "$imagenPrincipal",
             "mode": "fill"
           },
           "width": 1080,
-          "height": 1042,
+          "height": 1155,
           "stroke": {
             "align": "inside",
             "thickness": 1
@@ -1186,7 +42,7 @@
           "type": "rectangle",
           "id": "ePooY",
           "x": 0,
-          "y": 0,
+          "y": 344,
           "name": "grad-top",
           "fill": {
             "type": "gradient",
@@ -1198,7 +54,7 @@
             },
             "colors": [
               {
-                "color": "#000000D5",
+                "color": "#0a0e1a",
                 "position": 0
               },
               {
@@ -1212,17 +68,50 @@
             ]
           },
           "width": 1080,
-          "height": 559
+          "height": 313
+        },
+        {
+          "type": "rectangle",
+          "id": "NmqNA",
+          "x": 1080,
+          "y": 1330,
+          "name": "grad-top",
+          "rotation": 180,
+          "fill": {
+            "type": "gradient",
+            "gradientType": "linear",
+            "enabled": true,
+            "rotation": 180,
+            "size": {
+              "height": 1
+            },
+            "colors": [
+              {
+                "color": "#0a0e1a",
+                "position": 0
+              },
+              {
+                "color": "#00000040",
+                "position": 0.7
+              },
+              {
+                "color": "#00000000",
+                "position": 1
+              }
+            ]
+          },
+          "width": 1080,
+          "height": 504
         },
         {
           "type": "rectangle",
           "id": "0rXOx",
           "x": 0,
-          "y": 986,
+          "y": 1330,
           "name": "grad-bot",
-          "fill": "#030c39ff",
+          "fill": "#0a0e1aff",
           "width": 1080,
-          "height": 544
+          "height": 338
         },
         {
           "type": "text",
@@ -1243,7 +132,7 @@
           "type": "frame",
           "id": "3Oz5e",
           "x": 64,
-          "y": 132,
+          "y": 290,
           "name": "info-box",
           "width": 952,
           "height": 240,
@@ -1263,7 +152,7 @@
               "y": 22,
               "name": "make",
               "fill": "#FFFFFF",
-              "content": "TOYOTA",
+              "content": "$marca",
               "fontFamily": "Inter",
               "fontSize": 32,
               "fontWeight": "600",
@@ -1276,7 +165,7 @@
               "y": 62,
               "name": "model",
               "fill": "#FFFFFF",
-              "content": "TACOMA",
+              "content": "$modelo",
               "lineHeight": 0.9,
               "fontFamily": "Plus Jakarta Sans",
               "fontSize": 96,
@@ -1292,7 +181,7 @@
               "textGrowth": "fixed-width-height",
               "width": 489,
               "height": 52,
-              "content": "TRD SPORT · 2022",
+              "content": "$version · $anio",
               "fontFamily": "Inter",
               "fontSize": 45,
               "fontWeight": "500",
@@ -1346,7 +235,7 @@
                   "id": "WRCnX",
                   "name": "ofertaLabel",
                   "fill": "#FFFFFF",
-                  "content": "ENGANCHE",
+                  "content": "$ofertaLabel",
                   "fontFamily": "Inter",
                   "fontSize": 35,
                   "fontWeight": "700",
@@ -1361,7 +250,7 @@
               "y": 109,
               "name": "offer-price-big",
               "fill": "#ffffffff",
-              "content": "$78,400",
+              "content": "$$precio",
               "lineHeight": 0.9,
               "fontFamily": "Plus Jakarta Sans",
               "fontSize": 85,
@@ -1372,22 +261,22 @@
         {
           "type": "rectangle",
           "id": "uPFcm",
-          "x": 342,
-          "y": 1055,
+          "x": 353,
+          "y": 182.54545454545456,
           "fill": {
             "type": "image",
             "enabled": true,
             "url": "Asset 2.png",
             "mode": "fill"
           },
-          "width": 396,
-          "height": 87
+          "width": 300,
+          "height": 66
         },
         {
           "type": "group",
           "id": "2vrbp",
           "x": 85,
-          "y": 1215,
+          "y": 1353,
           "children": [
             {
               "type": "rectangle",
@@ -1426,9 +315,19 @@
                   "id": "xMTy3",
                   "name": "kmTxt",
                   "fill": "#ffffffe6",
-                  "content": "67,990 km  ·  V6 3.5L  ·  4WD",
+                  "content": "$kilometraje",
                   "fontFamily": "Inter",
-                  "fontSize": 55,
+                  "fontSize": 45,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "HJ3ss",
+                  "name": "kmTxt",
+                  "fill": "#ffffffe6",
+                  "content": "$registro",
+                  "fontFamily": "Inter",
+                  "fontSize": 45,
                   "fontWeight": "normal"
                 }
               ]
@@ -1473,7 +372,7 @@
                       "id": "Qv42l",
                       "name": "c1big",
                       "fill": "#FFFFFF",
-                      "content": "60 meses",
+                      "content": "$plazo",
                       "lineHeight": 1,
                       "fontFamily": "Plus Jakarta Sans",
                       "fontSize": 75,
@@ -1509,7 +408,7 @@
                       "id": "gSN2M",
                       "name": "c2val",
                       "fill": "#FFFFFFBB",
-                      "content": "Tasa mensual desde",
+                      "content": "$tasaLabel",
                       "fontFamily": "Inter",
                       "fontSize": 40,
                       "fontWeight": "normal"
@@ -1537,7 +436,7 @@
                           }
                         ]
                       },
-                      "content": "1%",
+                      "content": "$tasa",
                       "lineHeight": 1,
                       "fontFamily": "Plus Jakarta Sans",
                       "fontSize": 75,
@@ -1553,92 +452,143 @@
     },
     {
       "type": "frame",
-      "id": "Bfq5T",
-      "x": 1975,
-      "y": 2770,
-      "name": "verified-row",
-      "width": 952,
-      "height": 52,
-      "gap": 20,
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "PUy8Y",
-          "name": "verIcon",
-          "width": 36,
-          "height": 36,
-          "iconFontName": "shield-check",
-          "iconFontFamily": "lucide",
-          "fill": "#22C55E"
-        },
-        {
-          "type": "text",
-          "id": "xBw04",
-          "name": "verTxt",
-          "fill": "#FFFFFF",
-          "content": "Legalmente Verificado",
-          "fontFamily": "Inter",
-          "fontSize": 30,
-          "fontWeight": "600"
-        },
-        {
-          "type": "ellipse",
-          "id": "JmKMY",
-          "name": "verDot",
-          "fill": "#FFFFFF50",
-          "width": 6,
-          "height": 6
-        },
-        {
-          "type": "icon_font",
-          "id": "WHpk0",
-          "name": "inspIcon",
-          "width": 36,
-          "height": 36,
-          "iconFontName": "wrench",
-          "iconFontFamily": "lucide",
-          "fill": "#4FC3FF"
-        },
-        {
-          "type": "text",
-          "id": "E7u2g",
-          "name": "inspTxt",
-          "fill": "#FFFFFF",
-          "content": "Inspección Mecánica",
-          "fontFamily": "Inter",
-          "fontSize": 30,
-          "fontWeight": "600"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "QHd9f",
-      "x": 1975,
-      "y": 3106,
-      "name": "footer-bar",
+      "id": "3d1xQ",
+      "x": 2543,
+      "y": -243,
+      "name": "plantilla1",
+      "clip": true,
       "width": 1080,
-      "height": 92,
-      "fill": "#00000090",
-      "padding": [
-        0,
-        64
-      ],
-      "justifyContent": "space_between",
-      "alignItems": "center",
+      "height": 1920,
+      "fill": "#0a0e1a",
+      "layout": "none",
       "children": [
+        {
+          "type": "rectangle",
+          "id": "xYGpo",
+          "x": 0,
+          "y": 505,
+          "name": "car-photo-bg",
+          "metadata": {
+            "type": "unsplash",
+            "username": "caioportela",
+            "link": "https://unsplash.com/@caioportela",
+            "author": "Caio Portela"
+          },
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenPrincipal",
+            "mode": "fill"
+          },
+          "width": 1080,
+          "height": 966,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          }
+        },
+        {
+          "type": "rectangle",
+          "id": "eLH9S",
+          "x": 0,
+          "y": 1471,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenSecundaria",
+            "mode": "fill"
+          },
+          "width": 561,
+          "height": 449
+        },
+        {
+          "type": "rectangle",
+          "id": "SRkFt",
+          "x": 560.6161071849692,
+          "y": 1471,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenTerciaria",
+            "mode": "fill"
+          },
+          "width": 520,
+          "height": 449
+        },
+        {
+          "type": "rectangle",
+          "id": "0o0oo",
+          "x": 0,
+          "y": 64,
+          "name": "grad-bot",
+          "fill": "#0a0e1aff",
+          "width": 1081,
+          "height": 539
+        },
         {
           "type": "frame",
-          "id": "PooxM",
-          "name": "logo-group-footer",
-          "height": 42,
-          "alignItems": "center",
+          "id": "GiXNQ",
+          "x": 65,
+          "y": 311,
+          "name": "info-box",
+          "width": 952,
+          "height": 240,
+          "fill": "#00000000",
+          "cornerRadius": 6,
+          "stroke": {
+            "align": "inside",
+            "thickness": 2
+          },
+          "layout": "none",
           "children": [
             {
               "type": "text",
-              "id": "4Rb3N",
-              "name": "footer-logo-car",
+              "id": "ecrra",
+              "x": 28,
+              "y": 22,
+              "name": "make",
+              "fill": "#FFFFFF",
+              "content": "$marca",
+              "fontFamily": "Inter",
+              "fontSize": 32,
+              "fontWeight": "600",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "xEpoM",
+              "x": 28,
+              "y": 62,
+              "name": "model",
+              "fill": "#FFFFFF",
+              "content": "$modelo",
+              "lineHeight": 0.9,
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": 96,
+              "fontWeight": "800"
+            },
+            {
+              "type": "text",
+              "id": "f2uG8",
+              "x": 28,
+              "y": 168,
+              "name": "trim",
+              "fill": "#ffffffe6",
+              "textGrowth": "fixed-width-height",
+              "width": 489,
+              "height": 52,
+              "content": "$version · $anio",
+              "fontFamily": "Inter",
+              "fontSize": 45,
+              "fontWeight": "500",
+              "letterSpacing": 1
+            },
+            {
+              "type": "frame",
+              "id": "bTnGR",
+              "x": 560,
+              "y": 37,
+              "name": "oferta-badge",
               "fill": {
                 "type": "gradient",
                 "gradientType": "linear",
@@ -1649,7 +599,7 @@
                 },
                 "colors": [
                   {
-                    "color": "#4F8EFF",
+                    "color": "#4F6BFF",
                     "position": 0
                   },
                   {
@@ -1658,171 +608,750 @@
                   }
                 ]
               },
-              "content": "car",
-              "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 34,
-              "fontWeight": "800"
+              "cornerRadius": 4,
+              "gap": 8,
+              "padding": [
+                4,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "PKLtj",
+                  "name": "ofertaIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "tag",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                },
+                {
+                  "type": "text",
+                  "id": "2LmTJ",
+                  "name": "ofertaLabel",
+                  "fill": "#FFFFFF",
+                  "content": "$ofertaLabel",
+                  "fontFamily": "Inter",
+                  "fontSize": 35,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                }
+              ]
             },
             {
               "type": "text",
-              "id": "2fE76",
-              "name": "footer-logo-fiable",
-              "fill": "#FFFFFF",
-              "content": "fiable",
+              "id": "By9N2",
+              "x": 560,
+              "y": 109,
+              "name": "offer-price-big",
+              "fill": "#ffffffff",
+              "content": "$$precio",
+              "lineHeight": 0.9,
               "fontFamily": "Plus Jakarta Sans",
-              "fontSize": 34,
+              "fontSize": 85,
               "fontWeight": "800"
             }
           ]
         },
         {
           "type": "text",
-          "id": "JZBjr",
-          "name": "footerWeb",
-          "fill": "#FFFFFFBB",
-          "content": "carfiable.mx",
+          "id": "JozIb",
+          "x": 64,
+          "y": 1820,
+          "name": "disclaimer",
+          "fill": "#ffffffa6",
+          "textGrowth": "fixed-width",
+          "width": 952,
+          "content": "*Aplican restricciones. Condiciones de crédito, enganche, tasa anual, sujeto a cambios de acuerdo a perfil crediticio. Unidad única",
+          "textAlign": "center",
           "fontFamily": "Inter",
-          "fontSize": 28,
-          "fontWeight": "600"
+          "fontSize": 27,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "id": "0AZg9",
+          "x": 383,
+          "y": 188,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "Asset 2.png",
+            "mode": "fill"
+          },
+          "width": 313,
+          "height": 69
+        },
+        {
+          "type": "group",
+          "id": "UEWxd",
+          "x": 67.97844827586232,
+          "y": 1245,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "Yauwm",
+              "x": 918.0215517241377,
+              "y": 305,
+              "name": "grad-top",
+              "rotation": 180,
+              "fill": "#0a0e1aff",
+              "width": 890,
+              "height": 339.9999999999999
+            },
+            {
+              "type": "rectangle",
+              "id": "RRyXv",
+              "x": 73.02155172413768,
+              "y": 76.81034482758628,
+              "name": "divider",
+              "fill": "#ffffffe6",
+              "width": 800,
+              "height": 2.3275862068965507
+            },
+            {
+              "type": "frame",
+              "id": "az996",
+              "x": 73.02155172413768,
+              "y": 1.1368683772161603e-13,
+              "name": "km-row",
+              "width": 800,
+              "height": 55.86206896551722,
+              "gap": 16,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "boA8l",
+                  "name": "kmIcon",
+                  "width": 42,
+                  "height": 42,
+                  "iconFontName": "gauge",
+                  "iconFontFamily": "lucide",
+                  "fill": "#ffffffe6"
+                },
+                {
+                  "type": "text",
+                  "id": "u7muP",
+                  "name": "kmTxt",
+                  "fill": "#ffffffe6",
+                  "content": "$kilometraje",
+                  "fontFamily": "Inter",
+                  "fontSize": 39,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Rem09",
+                  "name": "registro",
+                  "fill": "#ffffffe6",
+                  "content": "$registro",
+                  "fontFamily": "Inter",
+                  "fontSize": 39,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Tdtpe",
+              "x": 74.52155172413768,
+              "y": 97.75862068965512,
+              "name": "fin-row",
+              "width": 797,
+              "height": 171.99999999999994,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "b7b4i",
+                  "name": "fin-col1",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    25
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "9SCIq",
+                      "name": "c1val",
+                      "fill": "#FFFFFFBB",
+                      "content": "Plazos hasta",
+                      "fontFamily": "Inter",
+                      "fontSize": 33,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "J1M5o",
+                      "name": "c1big",
+                      "fill": "#FFFFFF",
+                      "content": "$plazo",
+                      "lineHeight": 1,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 65,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "7VKuN",
+                  "name": "col-div1",
+                  "fill": "#ffffffe6",
+                  "width": 2,
+                  "height": 100
+                },
+                {
+                  "type": "frame",
+                  "id": "JvwNr",
+                  "name": "fin-col2",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    25
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "vLDvT",
+                      "name": "c2val",
+                      "fill": "#FFFFFFBB",
+                      "content": "$tasaLabel",
+                      "fontFamily": "Inter",
+                      "fontSize": 33,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "GvW4R",
+                      "name": "c2big",
+                      "fill": {
+                        "type": "gradient",
+                        "gradientType": "linear",
+                        "enabled": true,
+                        "rotation": 90,
+                        "size": {
+                          "height": 1
+                        },
+                        "colors": [
+                          {
+                            "color": "#4F6BFF",
+                            "position": 0
+                          },
+                          {
+                            "color": "#00C6FF",
+                            "position": 1
+                          }
+                        ]
+                      },
+                      "content": "$tasa",
+                      "lineHeight": 1,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 65,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "type": "frame",
-      "id": "YbGlp",
-      "x": 1888,
-      "y": 3535,
-      "name": "cta-box",
-      "width": 952,
-      "height": 96,
-      "fill": {
-        "type": "gradient",
-        "gradientType": "linear",
-        "enabled": true,
-        "rotation": 90,
-        "size": {
-          "height": 1
-        },
-        "colors": [
-          {
-            "color": "#4F6BFF",
-            "position": 0
-          },
-          {
-            "color": "#00C6FF",
-            "position": 1
-          }
-        ]
-      },
-      "cornerRadius": 12,
-      "justifyContent": "center",
-      "alignItems": "center",
+      "id": "6Yap8",
+      "x": 5771,
+      "y": -132,
+      "name": "plantilla3",
+      "clip": true,
+      "width": 1080,
+      "height": 1920,
+      "fill": "#0a0e1a",
+      "layout": "none",
       "children": [
         {
-          "type": "icon_font",
-          "id": "uBYyO",
-          "name": "ctaIcon",
-          "width": 44,
-          "height": 44,
-          "iconFontName": "message-circle",
-          "iconFontFamily": "lucide",
-          "fill": "#FFFFFF"
+          "type": "rectangle",
+          "id": "5GPxp",
+          "x": 0,
+          "y": 478,
+          "name": "car-photo-bg",
+          "metadata": {
+            "type": "unsplash",
+            "username": "caioportela",
+            "link": "https://unsplash.com/@caioportela",
+            "author": "Caio Portela"
+          },
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenPrincipal",
+            "mode": "fill"
+          },
+          "width": 1080,
+          "height": 1232,
+          "stroke": {
+            "align": "inside",
+            "thickness": 1
+          }
+        },
+        {
+          "type": "rectangle",
+          "id": "DPK7S",
+          "x": 1,
+          "y": -5.684341886080802e-14,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenSecundaria",
+            "mode": "fill"
+          },
+          "width": 561,
+          "height": 478
+        },
+        {
+          "type": "rectangle",
+          "id": "V0JaK",
+          "x": 561.6161071849692,
+          "y": -5.684341886080802e-14,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "$imagenTerciaria",
+            "mode": "fill"
+          },
+          "width": 520,
+          "height": 478
+        },
+        {
+          "type": "group",
+          "id": "g8Hou",
+          "x": 84.95689655172464,
+          "y": 368.0000000000001,
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "Ehb2l",
+              "x": 918.0215517241377,
+              "y": 305,
+              "name": "grad-top",
+              "rotation": 180,
+              "fill": "#0a0e1aff",
+              "width": 890,
+              "height": 340
+            },
+            {
+              "type": "rectangle",
+              "id": "kiBeS",
+              "x": 73.02155172413768,
+              "y": 76.81034482758628,
+              "name": "divider",
+              "fill": "#ffffffe6",
+              "width": 800,
+              "height": 2.3275862068965516
+            },
+            {
+              "type": "frame",
+              "id": "0Ynnj",
+              "x": 73.02155172413768,
+              "y": 0,
+              "name": "km-row",
+              "width": 800,
+              "height": 55.86206896551724,
+              "gap": 16,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "muota",
+                  "name": "kmIcon",
+                  "width": 42,
+                  "height": 42,
+                  "iconFontName": "gauge",
+                  "iconFontFamily": "lucide",
+                  "fill": "#ffffffe6"
+                },
+                {
+                  "type": "text",
+                  "id": "wFSlk",
+                  "name": "kmTxt",
+                  "fill": "#ffffffe6",
+                  "content": "$kilometraje",
+                  "fontFamily": "Inter",
+                  "fontSize": 39,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "c8OXn",
+                  "name": "registro",
+                  "fill": "#ffffffe6",
+                  "content": "$registro",
+                  "fontFamily": "Inter",
+                  "fontSize": 39,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "1rreX",
+              "x": 74.52155172413768,
+              "y": 97.75862068965512,
+              "name": "fin-row",
+              "width": 797,
+              "height": 172,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "twjOJ",
+                  "name": "fin-col1",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    25
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "5H1c4",
+                      "name": "c1val",
+                      "fill": "#FFFFFFBB",
+                      "content": "Plazos hasta",
+                      "fontFamily": "Inter",
+                      "fontSize": 33,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "xhqd2",
+                      "name": "c1big",
+                      "fill": "#FFFFFF",
+                      "content": "$plazo",
+                      "lineHeight": 1,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 65,
+                      "fontWeight": "800"
+                    }
+                  ]
+                },
+                {
+                  "type": "rectangle",
+                  "id": "FUpv3",
+                  "name": "col-div1",
+                  "fill": "#ffffffe6",
+                  "width": 2,
+                  "height": 100
+                },
+                {
+                  "type": "frame",
+                  "id": "isT03",
+                  "name": "fin-col2",
+                  "width": "fill_container",
+                  "height": "fill_container",
+                  "layout": "vertical",
+                  "gap": 8,
+                  "padding": [
+                    0,
+                    25
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "92i9g",
+                      "name": "c2val",
+                      "fill": "#FFFFFFBB",
+                      "content": "$tasaLabel",
+                      "fontFamily": "Inter",
+                      "fontSize": 33,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "x1Y6D",
+                      "name": "c2big",
+                      "fill": {
+                        "type": "gradient",
+                        "gradientType": "linear",
+                        "enabled": true,
+                        "rotation": 90,
+                        "size": {
+                          "height": 1
+                        },
+                        "colors": [
+                          {
+                            "color": "#4F6BFF",
+                            "position": 0
+                          },
+                          {
+                            "color": "#00C6FF",
+                            "position": 1
+                          }
+                        ]
+                      },
+                      "content": "$tasa",
+                      "lineHeight": 1,
+                      "fontFamily": "Plus Jakarta Sans",
+                      "fontSize": 65,
+                      "fontWeight": "800"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "uhHC6",
+          "x": -1,
+          "y": 1369,
+          "name": "grad-bot",
+          "fill": "#0a0e1aff",
+          "width": 1081,
+          "height": 379
+        },
+        {
+          "type": "frame",
+          "id": "mmJ8D",
+          "x": 64,
+          "y": 1507,
+          "name": "info-box",
+          "width": 952,
+          "height": 240,
+          "fill": "#00000000",
+          "cornerRadius": 6,
+          "stroke": {
+            "align": "inside",
+            "thickness": 2,
+            "fill": "#FFFFFFCC"
+          },
+          "layout": "none",
+          "children": [
+            {
+              "type": "text",
+              "id": "OZXLO",
+              "x": 28,
+              "y": 22,
+              "name": "make",
+              "fill": "#FFFFFF",
+              "content": "$marca",
+              "fontFamily": "Inter",
+              "fontSize": 32,
+              "fontWeight": "600",
+              "letterSpacing": 3
+            },
+            {
+              "type": "text",
+              "id": "iy2nf",
+              "x": 28,
+              "y": 62,
+              "name": "model",
+              "fill": "#FFFFFF",
+              "content": "$modelo",
+              "lineHeight": 0.9,
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": 96,
+              "fontWeight": "800"
+            },
+            {
+              "type": "text",
+              "id": "kvnCa",
+              "x": 28,
+              "y": 168,
+              "name": "trim",
+              "fill": "#ffffffe6",
+              "textGrowth": "fixed-width-height",
+              "width": 489,
+              "height": 52,
+              "content": "$version · $anio",
+              "fontFamily": "Inter",
+              "fontSize": 45,
+              "fontWeight": "500",
+              "letterSpacing": 1
+            },
+            {
+              "type": "frame",
+              "id": "xMMNF",
+              "x": 560,
+              "y": 37,
+              "name": "oferta-badge",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 90,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#4F6BFF",
+                    "position": 0
+                  },
+                  {
+                    "color": "#00C6FF",
+                    "position": 1
+                  }
+                ]
+              },
+              "cornerRadius": 4,
+              "gap": 8,
+              "padding": [
+                4,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon_font",
+                  "id": "X88Ll",
+                  "name": "ofertaIcon",
+                  "width": 20,
+                  "height": 20,
+                  "iconFontName": "tag",
+                  "iconFontFamily": "lucide",
+                  "fill": "#FFFFFF"
+                },
+                {
+                  "type": "text",
+                  "id": "9WsaB",
+                  "name": "ofertaLabel",
+                  "fill": "#FFFFFF",
+                  "content": "$ofertaLabel",
+                  "fontFamily": "Inter",
+                  "fontSize": 35,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "TZmtC",
+              "x": 560,
+              "y": 109,
+              "name": "offer-price-big",
+              "fill": "#ffffffff",
+              "content": "$$precio",
+              "lineHeight": 0.9,
+              "fontFamily": "Plus Jakarta Sans",
+              "fontSize": 85,
+              "fontWeight": "800"
+            }
+          ]
         },
         {
           "type": "text",
-          "id": "uwaeO",
-          "name": "ctaTxt",
-          "fill": "#FFFFFF",
-          "content": "Ver este auto en carfiable.mx",
-          "fontFamily": "Plus Jakarta Sans",
-          "fontSize": 36,
-          "fontWeight": "700"
-        }
-      ]
-    },
-    {
-      "type": "rectangle",
-      "id": "ucWWk",
-      "x": 2743,
-      "y": 2100,
-      "fill": {
-        "type": "image",
-        "enabled": true,
-        "url": "carfiable-brdr.png",
-        "mode": "fill"
-      },
-      "width": 253,
-      "height": 253
-    },
-    {
-      "type": "frame",
-      "id": "A67ax",
-      "x": 2013,
-      "y": 2187,
-      "name": "enganche-badge",
-      "fill": {
-        "type": "gradient",
-        "gradientType": "linear",
-        "enabled": true,
-        "rotation": 90,
-        "size": {
-          "height": 1
-        },
-        "colors": [
-          {
-            "color": "#4F6BFF",
-            "position": 0
-          },
-          {
-            "color": "#00C6FF",
-            "position": 1
-          }
-        ]
-      },
-      "cornerRadius": 50,
-      "gap": 12,
-      "padding": [
-        14,
-        28
-      ],
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "icon_font",
-          "id": "Aq8YA",
-          "name": "engancheIcon",
-          "width": 30,
-          "height": 30,
-          "iconFontName": "tag",
-          "iconFontFamily": "lucide",
-          "fill": "#FFFFFF"
-        },
-        {
-          "type": "text",
-          "id": "YqW5D",
-          "name": "engancheTxt",
-          "fill": "#FFFFFF",
-          "content": "ENGANCHE DESDE 10%",
+          "id": "Bjgb8",
+          "x": 64,
+          "y": 1820,
+          "name": "disclaimer",
+          "fill": "#ffffffa6",
+          "textGrowth": "fixed-width",
+          "width": 952,
+          "content": "*Aplican restricciones. Condiciones de crédito, enganche, tasa anual, sujeto a cambios de acuerdo a perfil crediticio. Unidad única",
+          "textAlign": "center",
           "fontFamily": "Inter",
-          "fontSize": 28,
-          "fontWeight": "700",
-          "letterSpacing": 2
+          "fontSize": 27,
+          "fontWeight": "normal"
+        },
+        {
+          "type": "rectangle",
+          "id": "kkEmI",
+          "x": 383,
+          "y": 1408,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "Asset 2.png",
+            "mode": "fill"
+          },
+          "width": 313,
+          "height": 69
         }
       ]
-    },
-    {
-      "type": "rectangle",
-      "id": "V3Dbd",
-      "x": 4878,
-      "y": 715,
-      "fill": {
-        "type": "image",
-        "enabled": true,
-        "url": "Asset 2.png",
-        "mode": "fill"
-      },
-      "width": 1180,
-      "height": 260
     }
-  ]
+  ],
+  "variables": {
+    "kilometraje": {
+      "type": "string",
+      "value": "67,990 km"
+    },
+    "ofertaLabel": {
+      "type": "string",
+      "value": "PRECIO"
+    },
+    "plazo": {
+      "type": "string",
+      "value": "60 meses"
+    },
+    "precio": {
+      "type": "string",
+      "value": "78,400"
+    },
+    "registro": {
+      "type": "string",
+      "value": "MEXICANO DE AGENCIA"
+    },
+    "tasa": {
+      "type": "string",
+      "value": "1%"
+    },
+    "tasaLabel": {
+      "type": "string",
+      "value": "Tasa mensual desde"
+    },
+    "anio": {
+      "type": "string",
+      "value": "2022"
+    },
+    "imagenPrincipal": {
+      "type": "string",
+      "value": "hd_699ddadba72f9 (1).webp"
+    },
+    "imagenSecundaria": {
+      "type": "string",
+      "value": "./hd_699ddad667993.webp"
+    },
+    "imagenTerciaria": {
+      "type": "string",
+      "value": "./hd_699ddacbbcf98.webp"
+    },
+    "marca": {
+      "type": "string",
+      "value": "TOYOTA"
+    },
+    "modelo": {
+      "type": "string",
+      "value": "TACOMA"
+    },
+    "version": {
+      "type": "string",
+      "value": "TRD SPORT"
+    }
+  }
 }
