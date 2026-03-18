@@ -47,12 +47,6 @@ function prepareTemplateData(data) {
   const precioOferta = data.precio_oferta ? Number(data.precio_oferta) : null;
   const precioNum = (precioOferta && precioOferta < precioBase) ? precioOferta : precioBase;
 
-  // Campos configurables con valores predeterminados
-  const ofertaLabel = data.ofertaLabel || 'PRECIO';
-  const plazo       = data.plazo       || '60 meses';
-  const tasaLabel   = data.tasaLabel   || 'Tasa mensual desde';
-  const tasa        = data.tasa        || '1%';
-
   // Lógica de kilometraje / año
   const currentYear = new Date().getFullYear();
   const anio = parseInt(data.anio) || currentYear;
@@ -71,12 +65,26 @@ function prepareTemplateData(data) {
     : data.version || null;
 
   // Registro / procedencia
+  const rawRegistroKey = (data.registration_type || data.procedencia || data.registro || '').toLowerCase().trim();
   const registro = (data.registration_type || data.procedencia || data.registro || 'MEXICANO DE AGENCIA').toUpperCase().trim();
+
+  // Lógica de financiamiento según tipo de registro (mismo criterio que el frontend)
+  // nacional_agencia → 60 meses / 1% | resto → 48 meses / 2%
+  const esMexAgencia = rawRegistroKey === 'nacional_agencia'
+    || registro.includes('MEXICANO') && registro.includes('AGENCIA');
+  const plazoDefault    = esMexAgencia ? '60 meses' : '48 meses';
+  const tasaDefault     = esMexAgencia ? '1%'       : '2%';
+  const enganchePct     = esMexAgencia ? 0.10       : 0.15; // 10% agencia / 15% otros
+
+  const ofertaLabel = data.ofertaLabel || 'PRECIO';
+  const plazo       = data.plazo       || plazoDefault;
+  const tasaLabel   = data.tasaLabel   || 'Tasa mensual desde';
+  const tasa        = data.tasa        || tasaDefault;
 
   return {
     precio: fmt.format(precioNum),
     precioNum,
-    enganche: fmt.format(precioNum * 0.10),
+    enganche: fmt.format(precioNum * enganchePct),
     mensual: fmt.format(precioNum * 0.025),
     ofertaLabel, plazo, tasaLabel, tasa,
     km, kmDisplay, kmPerYear, altaRotacion,
@@ -89,21 +97,28 @@ const WA_ICON = `<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.0
 
 // --- PLANTILLA 1: Dark Cinema ---
 const generateHTML = (data) => {
-  const { precio, enganche, kmDisplay, altaRotacion, datoAlternativo, registro, mainImage, imagesArray } = prepareTemplateData(data);
-  const marca  = (data.marca || '').toUpperCase();
+  const { precio, kmDisplay, altaRotacion, datoAlternativo, registro,
+          ofertaLabel, plazo, tasaLabel, tasa,
+          mainImage, imagesArray } = prepareTemplateData(data);
+  const marca  = (data.marca  || '').toUpperCase();
   const modelo = (data.modelo || '').toUpperCase();
+  const version = data.version || '';
+  const anio    = data.anio   || '';
 
   let otherImages = [...imagesArray].slice(1).sort(() => 0.5 - Math.random()).slice(0, 2);
   while (otherImages.length < 2) otherImages.push(mainImage);
 
   const kmRow = kmDisplay
-    ? `<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+    ? `<div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
         <span style="font-size:38px;font-weight:700;color:rgba(255,255,255,0.75);">
           ${altaRotacion && datoAlternativo ? datoAlternativo : kmDisplay}
         </span>
         ${!altaRotacion ? `<span style="font-size:32px;color:rgba(255,255,255,0.4);font-weight:600;">· ${registro}</span>` : ''}
       </div>`
     : '';
+
+  const rawLen   = precio.replace(/[^0-9]/g, '').length;
+  const pFontSize = rawLen >= 8 ? 80 : rawLen >= 7 ? 92 : rawLen >= 6 ? 104 : 116;
 
   return `<!DOCTYPE html>
 <html lang="es">
@@ -119,30 +134,49 @@ const generateHTML = (data) => {
       <div style="position:absolute;inset:0;background:rgba(0,0,0,0.4);"></div>
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0.88) 0%,transparent 40%,rgba(0,0,0,0.94) 100%);"></div>
     </div>
+
+    <!-- TOP: logo + car info -->
     <div style="position:relative;z-index:20;padding:120px 80px 0;display:flex;flex-direction:column;align-items:center;text-align:center;">
       <img src="http://localhost:3000/ideas/negativo-color.svg" style="height:88px;object-fit:contain;margin-bottom:56px;">
       ${marca ? `<p style="font-size:44px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.2em;margin-bottom:8px;">${marca}</p>` : ''}
       <h1 style="font-size:140px;font-weight:900;color:#fff;text-transform:uppercase;line-height:0.85;letter-spacing:-0.03em;font-style:italic;">${modelo}</h1>
-      <p style="font-size:48px;font-weight:800;color:#3865E9;text-transform:uppercase;letter-spacing:0.18em;margin-top:20px;">${data.version || ''}</p>
+      ${version ? `<p style="font-size:48px;font-weight:800;color:#3865E9;text-transform:uppercase;letter-spacing:0.18em;margin-top:20px;">${version}${anio ? ' · ' + anio : ''}</p>` : ''}
     </div>
+
+    <!-- BOTTOM: km, precio, financing, photos, phone -->
     <div style="position:relative;z-index:20;padding:0 80px 72px;display:flex;flex-direction:column;align-items:center;">
       ${kmRow}
-      <div style="display:flex;align-items:center;gap:64px;margin-bottom:56px;">
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <span style="font-size:28px;color:rgba(255,255,255,0.6);font-weight:700;text-transform:uppercase;margin-bottom:8px;">Precio</span>
-          <span style="font-size:72px;font-weight:900;color:#fff;">${precio}</span>
+
+      <!-- Precio centrado (único) -->
+      <div style="display:flex;flex-direction:column;align-items:center;margin-bottom:48px;">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(180deg,#4F6BFF,#00C6FF);border-radius:6px;padding:6px 20px;margin-bottom:16px;">
+          <span style="width:22px;height:22px;color:white;display:flex;align-items:center;flex-shrink:0;">${TAG_ICON}</span>
+          <span style="color:#fff;font-size:34px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">${ofertaLabel}</span>
         </div>
-        <div style="width:1px;height:100px;background:rgba(255,255,255,0.2);"></div>
-        <div style="display:flex;flex-direction:column;align-items:center;">
-          <span style="font-size:28px;color:#3865E9;font-weight:700;text-transform:uppercase;margin-bottom:8px;">Enganche</span>
-          <span style="font-size:72px;font-weight:900;color:#fff;">${enganche}</span>
+        <span style="font-size:${pFontSize}px;font-weight:900;color:#fff;white-space:nowrap;line-height:1;">${precio}</span>
+      </div>
+
+      <!-- Financiamiento: plazo | tasa -->
+      <div style="display:flex;align-items:center;width:100%;margin-bottom:52px;">
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <span style="font-size:26px;color:rgba(255,255,255,0.55);font-weight:600;text-transform:uppercase;letter-spacing:1px;">Plazos hasta</span>
+          <span style="font-size:56px;font-weight:900;color:#fff;">${plazo}</span>
+        </div>
+        <div style="width:2px;height:96px;background:rgba(255,255,255,0.2);"></div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <span style="font-size:26px;color:rgba(255,255,255,0.55);font-weight:600;text-transform:uppercase;letter-spacing:1px;">${tasaLabel}</span>
+          <span style="font-size:56px;font-weight:900;background:linear-gradient(180deg,#4F6BFF,#00C6FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">${tasa}</span>
         </div>
       </div>
+
+      <!-- Photo strips -->
       <div style="width:120%;margin-left:-10%;overflow:hidden;margin-bottom:56px;">
         <div style="display:flex;height:288px;gap:8px;" class="skew">
           ${otherImages.map(img => `<div style="flex:1;overflow:hidden;border:1px solid rgba(255,255,255,0.1);background:#1f2937;"><img src="${img}" style="width:100%;height:100%;object-fit:cover;" class="unskew"></div>`).join('')}
         </div>
       </div>
+
+      <!-- Phone -->
       <div style="display:flex;align-items:center;justify-content:center;gap:20px;background:#3865E9;border-radius:60px;padding:22px 56px;margin-bottom:32px;">
         <svg viewBox="0 0 24 24" style="width:40px;height:40px;fill:white;flex-shrink:0;">${WA_ICON}</svg>
         <span style="font-size:52px;font-weight:900;color:white;">${FIXED_PHONE}</span>
