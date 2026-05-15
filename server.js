@@ -1,5 +1,10 @@
+// Carga variables de .env.local en desarrollo (Docker pasa env vars directamente).
+require('dotenv').config({ path: '.env.local' });
+
 const express = require('express');
 const puppeteer = require('puppeteer');
+const { buildReel } = require('./lib/build-reel');
+const { uploadToSpaces } = require('./lib/upload-spaces');
 const app = express();
 
 // CORS — permite requests desde el panel Next.js en cualquier puerto local
@@ -940,6 +945,52 @@ app.post('/generate-carousel', async (req, res) => {
   } catch (err) {
     if (browser) await browser.close();
     console.error("Error generando carrusel:", err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- /generate-reel (MP4 1080×1920, ~23s) — Etapa 1 MVP ---
+// Reutiliza los 5 slides del carrusel (1080×1080 → letterboxed a 9:16),
+// los combina con crossfade vía FFmpeg, sube el MP4 a DO Spaces y devuelve
+// { videoUrl, sizeBytes, duration } — la URL pública es la que recibe Meta API.
+app.post('/generate-reel', async (req, res) => {
+  const t0 = Date.now();
+  let browser;
+  try {
+    // Etapa 2 (futuro): switch por tier — por ahora todos los tiers reciben el mismo reel.
+    const tier = req.body.tier || 'standard';
+    console.log(`[reel] Generating for tier="${tier}" — ${req.body.marca || ''} ${req.body.modelo || ''}`);
+
+    // 1) Render 5 slides JPEG reusando carouselSlide1..5
+    browser = await launchBrowser();
+    const slideGenerators = [carouselSlide1, carouselSlide2, carouselSlide3, carouselSlide4, carouselSlide5];
+    const frames = [];
+    for (const gen of slideGenerators) {
+      const buf = await renderHTML(browser, gen(req.body), 1080, 1080);
+      frames.push(buf);
+    }
+    await browser.close();
+    browser = null;
+    const tFrames = Date.now();
+    console.log(`[reel] Frames rendered in ${tFrames - t0}ms`);
+
+    // 2) FFmpeg slideshow → MP4 buffer
+    const { buffer, sizeBytes, duration } = await buildReel(frames);
+    const tMp4 = Date.now();
+    console.log(`[reel] MP4 built in ${tMp4 - tFrames}ms — ${(sizeBytes/1024/1024).toFixed(2)}MB, ${duration}s`);
+
+    // 3) Subir a DO Spaces — key incluye carId (si viene) o slug del modelo + timestamp
+    const slug = String(req.body.modelo || 'reel').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24);
+    const stamp = new Date().toISOString().replace(/[:.]/g, '-');
+    const key = `reels/${slug}-${stamp}.mp4`;
+    const videoUrl = await uploadToSpaces({ buffer, key, contentType: 'video/mp4' });
+    const tUpload = Date.now();
+    console.log(`[reel] Uploaded to ${videoUrl} in ${tUpload - tMp4}ms — total ${tUpload - t0}ms`);
+
+    res.json({ videoUrl, sizeBytes, duration, tier, timings: { frames: tFrames-t0, mp4: tMp4-tFrames, upload: tUpload-tMp4, total: tUpload-t0 } });
+  } catch (err) {
+    if (browser) await browser.close().catch(() => {});
+    console.error('[reel] Error:', err);
     res.status(500).json({ error: err.message });
   }
 });
