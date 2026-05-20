@@ -3,9 +3,15 @@ require('dotenv').config({ path: '.env.local' });
 
 const express = require('express');
 const puppeteer = require('puppeteer');
+const fs = require('fs');
+const path = require('path');
 const { buildReel } = require('./lib/build-reel');
 const { uploadToSpaces } = require('./lib/upload-spaces');
 const app = express();
+
+// Logo embebido como data URI para que Puppeteer lo cargue sin red (evita broken image en Docker).
+const LOGO_DATA_URI = 'data:image/svg+xml;base64,' +
+  fs.readFileSync(path.join(__dirname, 'ideas', 'negativo-color.svg')).toString('base64');
 
 // CORS — permite requests desde el panel Next.js en cualquier puerto local
 app.use((req, res, next) => {
@@ -158,7 +164,7 @@ const generateHTML = (data) => {
 
     <!-- TOP: logo + car info -->
     <div style="position:relative;z-index:20;padding:120px 80px 0;display:flex;flex-direction:column;align-items:center;text-align:center;">
-      <img src="http://localhost:3001/ideas/negativo-color.svg" style="height:88px;object-fit:contain;margin-bottom:56px;">
+      <img src="${LOGO_DATA_URI}" style="height:88px;object-fit:contain;margin-bottom:56px;">
       ${marca ? `<p style="font-size:44px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.2em;margin-bottom:8px;">${marca}</p>` : ''}
       <h1 style="font-size:140px;font-weight:900;color:#fff;text-transform:uppercase;line-height:0.85;letter-spacing:-0.03em;font-style:italic;">${modelo}</h1>
       ${version ? `<p style="font-size:48px;font-weight:800;color:#3865E9;text-transform:uppercase;letter-spacing:0.18em;margin-top:20px;">${version}${anio ? ' · ' + anio : ''}</p>` : ''}
@@ -310,7 +316,7 @@ const generatePen1 = (data) => {
   <div style="position:absolute;left:0;top:539px;width:1080px;height:80px;background:linear-gradient(180deg,#0a0e1a 0%,transparent 100%);pointer-events:none;"></div>
 
   <!-- Logo: x=383 y=188 w=313 h=69 -->
-  <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:383px;top:188px;width:313px;height:69px;object-fit:contain;">
+  <img src="${LOGO_DATA_URI}" style="position:absolute;left:383px;top:188px;width:313px;height:69px;object-fit:contain;">
 
   <!-- Info-box: x=65 y=311 w=952 h=240 -->
   <div style="position:absolute;left:65px;top:311px;width:952px;height:240px;border:2px solid rgba(255,255,255,0.8);border-radius:6px;background:rgba(10,14,26,0.35);backdrop-filter:blur(2px);">
@@ -367,7 +373,7 @@ const generatePen2 = (data) => {
   <div style="position:absolute;left:0;top:1330px;width:1080px;height:590px;background:#0a0e1a;"></div>
 
   <!-- Logo: x=353 y=182 w=300 h=66 -->
-  <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:353px;top:182px;width:300px;height:66px;object-fit:contain;">
+  <img src="${LOGO_DATA_URI}" style="position:absolute;left:353px;top:182px;width:300px;height:66px;object-fit:contain;">
 
   <!-- Info-box: x=64 y=290 w=952 h=240 -->
   <div style="position:absolute;left:64px;top:290px;width:952px;height:240px;border:2px solid rgba(255,255,255,0.8);border-radius:6px;background:rgba(10,14,26,0.25);">
@@ -440,7 +446,7 @@ const generatePen3 = (data) => {
   </div>
 
   <!-- Logo: x=383 y=1390 -->
-  <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:383px;top:1390px;width:313px;height:69px;object-fit:contain;">
+  <img src="${LOGO_DATA_URI}" style="position:absolute;left:383px;top:1390px;width:313px;height:69px;object-fit:contain;">
 
   <!-- Info-box: y=1480 h=240 -->
   <div style="position:absolute;left:64px;top:1480px;width:952px;height:240px;border:2px solid rgba(255,255,255,0.8);border-radius:6px;background:transparent;">
@@ -515,7 +521,7 @@ const generatePost1 = (data) => {
     <div style="position:absolute;left:0;bottom:0;right:0;height:280px;background:linear-gradient(0deg,rgba(0,0,0,0.90)0%,transparent 100%);"></div>
 
     <!-- Logo arriba izquierda -->
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:48px;top:40px;height:44px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:48px;top:40px;height:44px;object-fit:contain;">
 
     <!-- Marca arriba derecha -->
     ${marca ? `<p style="position:absolute;right:48px;top:48px;font-size:22px;font-weight:600;color:rgba(255,255,255,0.65);letter-spacing:0.22em;">${marca}</p>` : ''}
@@ -565,7 +571,7 @@ const generatePost2 = (data) => {
     <div style="position:absolute;left:0;top:620px;width:1080px;height:136px;background:linear-gradient(180deg,transparent,#0a0e1a 100%);"></div>
 
     <!-- Logo dentro de la foto arriba izquierda -->
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:44px;top:36px;height:44px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:44px;top:36px;height:44px;object-fit:contain;">
 
     <!-- Marca arriba derecha sobre foto -->
     ${marca ? `<p style="position:absolute;right:44px;top:44px;font-size:20px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.2em;">${marca}</p>` : ''}
@@ -626,7 +632,7 @@ const generatePost3 = (data) => {
     <div style="position:absolute;left:0;bottom:0;right:0;height:340px;background:linear-gradient(0deg,rgba(0,0,0,0.88)0%,rgba(0,0,0,0.6)50%,transparent 100%);"></div>
 
     <!-- Logo arriba centrado -->
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:50%;top:36px;transform:translateX(-50%);height:46px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:50%;top:36px;transform:translateX(-50%);height:46px;object-fit:contain;">
 
     <!-- Marca arriba izquierda -->
     ${marca ? `<p style="position:absolute;left:52px;top:44px;font-size:20px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.22em;">${marca}</p>` : ''}
@@ -687,7 +693,7 @@ const generatePost4 = (data) => {
     <div style="position:absolute;left:0;top:0;width:428px;height:1080px;background:linear-gradient(135deg,rgba(10,14,26,0.78)0%,rgba(10,14,26,0.35)100%);"></div>
 
     <!-- Logo izquierda arriba -->
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:28px;top:32px;height:40px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:28px;top:32px;height:40px;object-fit:contain;">
 
     <!-- Marca + Modelo en columna izquierda centrado verticalmente -->
     <div style="position:absolute;left:28px;top:200px;right:436px;">
@@ -739,7 +745,7 @@ function carouselSlide1(data) {
     <img src="${mainImage}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.35);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.88)0%,transparent 40%,rgba(0,0,0,0.92)100%);"></div>
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:50%;top:52px;transform:translateX(-50%);height:56px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:50%;top:52px;transform:translateX(-50%);height:56px;object-fit:contain;">
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px;">
       ${marca ? `<p style="font-size:28px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:0.28em;margin-bottom:10px;">${marca}</p>` : ''}
       <h1 style="font-size:${mfs(modelo)}px;font-weight:900;color:#fff;line-height:0.86;font-style:italic;margin-bottom:20px;">${modelo}</h1>
@@ -763,7 +769,7 @@ function carouselSlide2(data) {
   <div style="width:1080px;height:1080px;position:relative;overflow:hidden;background:#0a0e1a;">
     <!-- Header -->
     <div style="position:absolute;top:0;left:0;right:0;height:112px;background:#0a0e1a;display:flex;align-items:center;padding:0 40px;z-index:10;">
-      <img src="http://localhost:3001/ideas/negativo-color.svg" style="height:42px;object-fit:contain;margin-right:24px;">
+      <img src="${LOGO_DATA_URI}" style="height:42px;object-fit:contain;margin-right:24px;">
       <div style="width:1px;height:36px;background:rgba(255,255,255,0.12);margin-right:24px;"></div>
       <p style="font-size:28px;font-weight:700;color:rgba(255,255,255,0.7);letter-spacing:0.1em;">${marca} <span style="color:#fff;">${modelo}</span></p>
     </div>
@@ -794,7 +800,7 @@ function carouselSlide3(data) {
   <div style="width:1080px;height:1080px;position:relative;overflow:hidden;background:#0a0e1a;">
     <!-- Header -->
     <div style="position:absolute;top:0;left:0;right:0;height:112px;display:flex;align-items:center;padding:0 60px;border-bottom:1px solid rgba(255,255,255,0.08);">
-      <img src="http://localhost:3001/ideas/negativo-color.svg" style="height:44px;object-fit:contain;margin-right:24px;">
+      <img src="${LOGO_DATA_URI}" style="height:44px;object-fit:contain;margin-right:24px;">
       <div style="width:1px;height:36px;background:rgba(255,255,255,0.12);margin-right:24px;"></div>
       <p style="font-size:30px;font-weight:700;color:rgba(255,255,255,0.6);">${marca} <span style="color:#fff;">${modelo}</span></p>
       <p style="margin-left:auto;font-size:22px;color:rgba(255,255,255,0.35);font-weight:600;letter-spacing:0.1em;">ESPECIFICACIONES</p>
@@ -825,7 +831,7 @@ function carouselSlide4(data) {
   <div style="width:1080px;height:1080px;position:relative;overflow:hidden;background:#0a0e1a;">
     <!-- Header -->
     <div style="position:absolute;top:0;left:0;right:0;height:112px;display:flex;align-items:center;padding:0 60px;border-bottom:1px solid rgba(255,255,255,0.08);">
-      <img src="http://localhost:3001/ideas/negativo-color.svg" style="height:44px;object-fit:contain;margin-right:24px;">
+      <img src="${LOGO_DATA_URI}" style="height:44px;object-fit:contain;margin-right:24px;">
       <div style="width:1px;height:36px;background:rgba(255,255,255,0.12);margin-right:24px;"></div>
       <p style="font-size:30px;font-weight:700;color:rgba(255,255,255,0.6);">${marca} <span style="color:#fff;">${modelo}</span></p>
       <p style="margin-left:auto;font-size:22px;color:rgba(255,255,255,0.35);font-weight:600;letter-spacing:0.1em;">FINANCIAMIENTO</p>
@@ -870,7 +876,7 @@ function carouselSlide5(data) {
     <img src="${mainImage}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
     <div style="position:absolute;inset:0;background:rgba(0,0,0,0.42);"></div>
     <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.7)0%,transparent 35%,rgba(0,0,0,0.95)75%,#000 100%);"></div>
-    <img src="http://localhost:3001/ideas/negativo-color.svg" style="position:absolute;left:50%;top:52px;transform:translateX(-50%);height:54px;object-fit:contain;">
+    <img src="${LOGO_DATA_URI}" style="position:absolute;left:50%;top:52px;transform:translateX(-50%);height:54px;object-fit:contain;">
     <!-- Car name centered -->
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 80px;">
       ${marca ? `<p style="font-size:26px;font-weight:700;color:rgba(255,255,255,0.55);letter-spacing:0.28em;margin-bottom:8px;">${marca}</p>` : ''}
