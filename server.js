@@ -10,6 +10,24 @@ const { uploadToSpaces } = require('./lib/upload-spaces');
 const { fetchVoiceover } = require('./lib/voiceover');
 const app = express();
 
+// Caché de música de fondo en memoria (se carga una vez al primer reel que la use)
+let cachedMusicBuffer = null;
+async function getMusicBuffer() {
+  if (cachedMusicBuffer) return cachedMusicBuffer;
+  const musicUrl = process.env.REEL_MUSIC_URL;
+  if (!musicUrl) return null;
+  try {
+    const res = await fetch(musicUrl);
+    if (!res.ok) { console.warn(`[music] No se pudo cargar música: ${res.status}`); return null; }
+    cachedMusicBuffer = Buffer.from(await res.arrayBuffer());
+    console.log(`[music] Música cargada: ${(cachedMusicBuffer.length / 1024).toFixed(0)}KB`);
+    return cachedMusicBuffer;
+  } catch (e) {
+    console.warn(`[music] Error cargando música:`, e.message);
+    return null;
+  }
+}
+
 // Logo embebido como data URI para que Puppeteer lo cargue sin red (evita broken image en Docker).
 const LOGO_DATA_URI = 'data:image/svg+xml;base64,' +
   fs.readFileSync(path.join(__dirname, 'ideas', 'negativo-color.svg')).toString('base64');
@@ -986,6 +1004,7 @@ app.post('/generate-reel', async (req, res) => {
     let scriptUsed = null;
     if (tier >= 2) {
       try {
+        const previewScript = req.body.previewScript || null; // script pre-aprobado por el gestor
         const carData = {
           make:      req.body.marca || '',
           model:     req.body.modelo || '',
@@ -997,18 +1016,24 @@ app.post('/generate-reel', async (req, res) => {
           color:     req.body.color || '',
           registrationType: req.body.registration_type || '',
         };
-        const vo = await fetchVoiceover({ carData });
+        // Si viene previewScript (aprobado por gestor), lo usa directamente sin llamar a Claude
+        const vo = previewScript
+          ? await fetchVoiceover({ script: previewScript })
+          : await fetchVoiceover({ carData });
         audioBuffer = vo.buffer;
-        scriptUsed  = vo.scriptUsed;
-        console.log(`[reel] Voiceover OK (${audioBuffer.length} bytes) script="${scriptUsed?.slice(0, 60) || ''}..."`);
+        scriptUsed  = vo.scriptUsed || previewScript;
+        console.log(`[reel] Voiceover OK (${audioBuffer.length} bytes)${previewScript ? ' [script pre-aprobado]' : ''}`);
       } catch (vErr) {
         console.warn(`[reel] Voiceover falló, continuando sin voz:`, vErr.message);
       }
     }
     const tVoice = Date.now();
 
+    // Música de fondo (se carga desde REEL_MUSIC_URL si está configurado)
+    const musicBuffer = await getMusicBuffer();
+
     // 3) FFmpeg slideshow → MP4 (con o sin voz)
-    const { buffer, sizeBytes, duration } = await buildReel(frames, { audioBuffer });
+    const { buffer, sizeBytes, duration } = await buildReel(frames, { audioBuffer, musicBuffer });
     const tMp4 = Date.now();
     console.log(`[reel] MP4 built in ${tMp4 - tVoice}ms — ${(sizeBytes/1024/1024).toFixed(2)}MB, ${duration}s`);
 
