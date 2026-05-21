@@ -1,0 +1,81 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]: C
+        - generic [ref=e7]:
+          - heading "carfiable" [level=1] [ref=e8]
+          - paragraph [ref=e9]: social panel
+      - navigation [ref=e10]:
+        - link "Dashboard" [ref=e11] [cursor=pointer]:
+          - /url: /dashboard
+        - link "Inventario" [ref=e12] [cursor=pointer]:
+          - /url: /inventory
+        - link "Contenido" [ref=e13] [cursor=pointer]:
+          - /url: /content-studio
+      - button "Sincronizar" [ref=e15]:
+        - img
+        - text: Sincronizar
+    - generic [ref=e16]:
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - img [ref=e20]
+          - textbox "Buscar marca, modelo..." [ref=e23]
+        - button "Buscar" [ref=e24]
+      - generic [ref=e25]:
+        - generic [ref=e26]: "Plataformas:"
+        - generic [ref=e27]:
+          - img [ref=e28]
+          - text: IG Feed
+        - generic [ref=e31]:
+          - img [ref=e32]
+          - text: IG Story
+        - generic [ref=e35]:
+          - img [ref=e36]
+          - text: IG Reel
+        - generic [ref=e39]:
+          - img [ref=e40]
+          - text: FB Feed
+        - generic [ref=e43]:
+          - img [ref=e44]
+          - text: FB Story
+        - generic [ref=e47]:
+          - img [ref=e48]
+          - text: Marketplace
+      - table [ref=e54]:
+        - rowgroup [ref=e55]:
+          - row "Vehículo Precio IG Feed IG Story IG Reel FB Feed FB Story Marketplace Estado Acciones" [ref=e56]:
+            - columnheader "Vehículo" [ref=e57]
+            - columnheader "Precio" [ref=e58]
+            - columnheader "IG Feed" [ref=e59]
+            - columnheader "IG Story" [ref=e60]
+            - columnheader "IG Reel" [ref=e61]
+            - columnheader "FB Feed" [ref=e62]
+            - columnheader "FB Story" [ref=e63]
+            - columnheader "Marketplace" [ref=e64]
+            - columnheader "Estado" [ref=e65]
+            - columnheader "Acciones" [ref=e66]
+        - rowgroup [ref=e67]:
+          - row [ref=e68]:
+            - cell [ref=e69]
+          - row [ref=e71]:
+            - cell [ref=e72]
+          - row [ref=e74]:
+            - cell [ref=e75]
+          - row [ref=e77]:
+            - cell [ref=e78]
+          - row [ref=e80]:
+            - cell [ref=e81]
+          - row [ref=e83]:
+            - cell [ref=e84]
+          - row [ref=e86]:
+            - cell [ref=e87]
+          - row [ref=e89]:
+            - cell [ref=e90]
+          - row [ref=e92]:
+            - cell [ref=e93]
+          - row [ref=e95]:
+            - cell [ref=e96]
+  - button "Open Next.js Dev Tools" [ref=e103] [cursor=pointer]:
+    - img [ref=e104]
+  - alert [ref=e107]

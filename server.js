@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { buildReel } = require('./lib/build-reel');
 const { uploadToSpaces } = require('./lib/upload-spaces');
+const { fetchVoiceover } = require('./lib/voiceover');
 const app = express();
 
 // Logo embebido como data URI para que Puppeteer lo cargue sin red (evita broken image en Docker).
@@ -963,11 +964,11 @@ app.post('/generate-reel', async (req, res) => {
   const t0 = Date.now();
   let browser;
   try {
-    // Etapa 2 (futuro): switch por tier — por ahora todos los tiers reciben el mismo reel.
-    const tier = req.body.tier || 'standard';
-    console.log(`[reel] Generating for tier="${tier}" — ${req.body.marca || ''} ${req.body.modelo || ''}`);
+    // tier: 1 (sin voz), 2 (voz narrada), 3 (voz + más frames). Default = 1.
+    const tier = Number(req.body.tier) || 1;
+    console.log(`[reel] Generating tier=${tier} — ${req.body.marca || ''} ${req.body.modelo || ''}`);
 
-    // 1) Render 5 slides JPEG reusando carouselSlide1..5
+    // 1) Render slides JPEG (Tier 3 podría tener más, pero por ahora todos usan los 5 del carrusel)
     browser = await launchBrowser();
     const slideGenerators = [carouselSlide1, carouselSlide2, carouselSlide3, carouselSlide4, carouselSlide5];
     const frames = [];
@@ -980,20 +981,51 @@ app.post('/generate-reel', async (req, res) => {
     const tFrames = Date.now();
     console.log(`[reel] Frames rendered in ${tFrames - t0}ms`);
 
-    // 2) FFmpeg slideshow → MP4 buffer
-    const { buffer, sizeBytes, duration } = await buildReel(frames);
-    const tMp4 = Date.now();
-    console.log(`[reel] MP4 built in ${tMp4 - tFrames}ms — ${(sizeBytes/1024/1024).toFixed(2)}MB, ${duration}s`);
+    // 2) Voiceover si Tier 2 o 3
+    let audioBuffer = null;
+    let scriptUsed = null;
+    if (tier >= 2) {
+      try {
+        const carData = {
+          make:      req.body.marca || '',
+          model:     req.body.modelo || '',
+          year:      Number(req.body.anio) || 0,
+          price:     Number(req.body.precio) || 0,
+          offerPrice: req.body.precio_oferta ? Number(req.body.precio_oferta) : null,
+          mileage:   Number(req.body.km) || 0,
+          bodyStyle: req.body.bodyStyle || '',
+          color:     req.body.color || '',
+          registrationType: req.body.registration_type || '',
+        };
+        const vo = await fetchVoiceover({ carData });
+        audioBuffer = vo.buffer;
+        scriptUsed  = vo.scriptUsed;
+        console.log(`[reel] Voiceover OK (${audioBuffer.length} bytes) script="${scriptUsed?.slice(0, 60) || ''}..."`);
+      } catch (vErr) {
+        console.warn(`[reel] Voiceover falló, continuando sin voz:`, vErr.message);
+      }
+    }
+    const tVoice = Date.now();
 
-    // 3) Subir a DO Spaces — key incluye carId (si viene) o slug del modelo + timestamp
+    // 3) FFmpeg slideshow → MP4 (con o sin voz)
+    const { buffer, sizeBytes, duration } = await buildReel(frames, { audioBuffer });
+    const tMp4 = Date.now();
+    console.log(`[reel] MP4 built in ${tMp4 - tVoice}ms — ${(sizeBytes/1024/1024).toFixed(2)}MB, ${duration}s`);
+
+    // 4) Subir a DO Spaces — key incluye carId (si viene) o slug del modelo + timestamp
     const slug = String(req.body.modelo || 'reel').toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 24);
     const stamp = new Date().toISOString().replace(/[:.]/g, '-');
-    const key = `reels/${slug}-${stamp}.mp4`;
+    const key = `reels/${slug}-tier${tier}-${stamp}.mp4`;
     const videoUrl = await uploadToSpaces({ buffer, key, contentType: 'video/mp4' });
     const tUpload = Date.now();
     console.log(`[reel] Uploaded to ${videoUrl} in ${tUpload - tMp4}ms — total ${tUpload - t0}ms`);
 
-    res.json({ videoUrl, sizeBytes, duration, tier, timings: { frames: tFrames-t0, mp4: tMp4-tFrames, upload: tUpload-tMp4, total: tUpload-t0 } });
+    res.json({
+      videoUrl, sizeBytes, duration, tier,
+      hasVoice: !!audioBuffer,
+      scriptUsed,
+      timings: { frames: tFrames-t0, voice: tVoice-tFrames, mp4: tMp4-tVoice, upload: tUpload-tMp4, total: tUpload-t0 },
+    });
   } catch (err) {
     if (browser) await browser.close().catch(() => {});
     console.error('[reel] Error:', err);

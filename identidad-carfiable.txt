@@ -1,0 +1,224 @@
+🎨 BRAND IDENTITY - CARFIABLE
+LOGO & RECURSOS VISUALES
+Logo Principal (SVG):
+
+URL: https://carfiable.mx/images/logo.svg
+Nombre: Carfiable
+Formato: SVG (vectorial, escalable)
+Ubicación: Header superior izquierdo
+Tamaño recomendado: 40-50px altura en desktop, 30-35px mobile
+
+
+PALETA DE COLORES
+Colores Primarios:
+
+Azul Primario (Primary Blue)
+
+HEX: #3C62FF (también #4461FF)
+RGB: rgb(60, 98, 255)
+Uso: Logo, botones principales, textos destacados, links
+Aplicaciones: "Ver Autos", "Iniciar sesión", títulos principales
+
+
+Azul Marino Oscuro (Dark Navy)
+
+HEX: #001627
+Uso: Fondos de secciones importantes, textos principales, contraste
+Aplicaciones: Sección "El Proceso Carfiable", fondos oscuros
+
+
+Verde Teal/Turquesa (Accent Teal)
+
+HEX: #14B8A6
+RGB: rgb(20, 184, 166)
+Uso: Botón flotante WhatsApp, badges de acción
+Aplicaciones: CTAs secundarias, elementos flotantes
+
+
+
+Colores Secundarios:
+
+Verde Badge (Inspection Badge)
+
+HEX: #10B981 (verde claro)
+Uso: Badge "Inspeccionado" en tarjetas de autos
+Aplicaciones: Indicadores de estado positivo
+
+
+Gris Claro (Light Gray)
+
+HEX: #F5F5F5 / #FAFAF9
+Uso: Fondos de secciones, backgrounds neutros
+Aplicaciones: Body background, card backgrounds
+
+
+Gris Medio (Medium Gray)
+
+HEX: #888888 / #6B7280
+Uso: Textos secundarios, placeholders
+Aplicaciones: Descripciones, metadatos
+
+
+Negro (Text Black)
+
+HEX: #000000 / #1F2937
+Uso: Textos principales, headings
+Aplicaciones: Títulos, párrafos principales
+
+
+Blanco (White)
+
+HEX: #FFFFFF
+Uso: Fondos principales, textos sobre colores oscuros
+Aplicaciones: Cards, typography sobre azul marino
+
+
+
+
+TIPOGRAFÍA (Inferida)
+
+Headings: Sans-serif, peso bold/extrabold
+Body Text: Sans-serif, peso regular
+Buttons: Sans-serif, peso semibold/bold
+
+Ejemplo: "LA FORMA MAS INTELIGENTE DE COMPRAR UN SEMINUEVO" (en azul primario)
+
+COMPONENTES DE INTERFAZ
+Botones
+
+Primary Button (Azul)
+
+Background: #3C62FF
+Text Color: #FFFFFF
+Padding: 16px 32px
+Border Radius: 8-12px
+Ejemplo: "Ver Autos" (con flecha →)
+
+
+Secondary Button (Blanco/Border)
+
+Background: #FFFFFF
+Border: 1px solid #D1D5DB
+Text Color: #000000
+Padding: 16px 32px
+Ejemplo: "Vender mi Auto"
+
+
+Floating Button (Verde Teal)
+
+Background: #14B8A6
+Text Color: #FFFFFF
+Shape: Circular
+Tamaño: 56-60px
+Ubicación: Bottom-right
+Icono: WhatsApp
+
+
+
+Badges
+
+Inspection Badge (Verde)
+
+Background: #10B981 con transparencia
+Text Color: #FFFFFF
+Padding: 6px 12px
+Border Radius: 4-6px
+Texto: "Inspeccionado"
+
+
+
+Cards
+
+Background: #FFFFFF
+Border: 1px solid #E5E7EB (gris muy claro)
+Border Radius: 8-12px
+Shadow: Sutil
+
+
+ESQUEMA DE COLORES POR SECCIÓN
+
+Header Navigation
+
+Background: Blanco/Semi-transparente
+Text: Negro o Azul primario (links)
+Logo: Azul primario
+
+
+Hero Section
+
+Background: Gris claro (#F5F5F5)
+Heading: Azul primario (#3C62FF)
+CTA Buttons: Azul primario
+
+
+Product Cards
+
+Background: Blanco
+Badges: Verde
+Price Text: Azul primario
+Category Text: Negro
+
+
+Process Section (Dark)
+
+Background: Azul marino oscuro (#001627)
+Heading Text: Blanco
+Subtext: Gris claro
+Label Badge: Verde/Teal
+
+
+Footer
+
+Background: Blanco o muy claro
+Text: Negro/Gris
+Links: Azul primario
+
+
+
+
+ACCESOS DIRECTOS PARA IA
+json{
+  "brand": {
+    "name": "Carfiable",
+    "logoUrl": "https://carfiable.mx/images/logo.svg",
+    "industry": "Automotive Marketplace",
+    "colors": {
+      "primary": "#3C62FF",
+      "primaryDark": "#001627",
+      "accent": "#14B8A6",
+      "success": "#10B981",
+      "text": "#000000",
+      "textSecondary": "#888888",
+      "background": "#F5F5F5",
+      "white": "#FFFFFF"
+    },
+    "buttons": {
+      "primary": {
+        "bg": "#3C62FF",
+        "color": "#FFFFFF",
+        "padding": "16px 32px",
+        "borderRadius": "8px"
+      },
+      "secondary": {
+        "bg": "#FFFFFF",
+        "color": "#000000",
+        "border": "1px solid #D1D5DB",
+        "padding": "16px 32px"
+      },
+      "floating": {
+        "bg": "#14B8A6",
+        "shape": "circular",
+        "size": "56px"
+      }
+    }
+  }
+}
+
+RECOMENDACIONES DE USO
+✅ DO's:
+
+Usar azul primario para CTAs principales (botones de acción)
+Verde para indicadores de éxito/inspección
+Mantener suficiente contraste entre texto y fondo
+Usar azul marino para fondos oscuros
+Mantener espaciado consistente
