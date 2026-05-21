@@ -1033,5 +1033,123 @@ app.post('/generate-reel', async (req, res) => {
   }
 });
 
+// --- /generate-grouped-carousel (portada + 1 slide por auto + CTA) ---
+app.post('/generate-grouped-carousel', async (req, res) => {
+  let browser;
+  try {
+    const { type = 'offers_active', title = '', description = '', cars = [] } = req.body;
+
+    // Limitar a máx 6 autos
+    const carList = cars.slice(0, 6);
+
+    const formatMXNGrouped = (n) =>
+      new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 }).format(n || 0);
+
+    const placeholder = 'https://via.placeholder.com/1080x1080?text=Sin+imagen';
+
+    // ── Slide 0: Portada ────────────────────────────────────────────────────────
+    const slideCover = () => `<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; height: 1080px; background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: -apple-system, 'Inter', sans-serif; color: white; }
+  .logo { width: 160px; margin-bottom: 48px; }
+  .badge { background: #f0b429; color: #000; font-size: 14px; font-weight: 700;
+    padding: 6px 16px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+  h1 { font-size: 52px; font-weight: 800; text-align: center; line-height: 1.1; margin-bottom: 16px; max-width: 800px; }
+  p { font-size: 24px; color: #9ca3af; text-align: center; max-width: 640px; }
+</style></head><body>
+  <img class="logo" src="${LOGO_DATA_URI}" />
+  <div class="badge">Inventario Carfiable</div>
+  <h1>${title}</h1>
+  <p>${description}</p>
+</body></html>`;
+
+    // ── Slide auto individual ───────────────────────────────────────────────────
+    const slideCar = (car) => {
+      const imageUrl = (Array.isArray(car.images) && car.images[0]) ? car.images[0] : placeholder;
+      const priceHTML = (car.offerPrice && car.offerPrice < car.price)
+        ? `<span class="price">${formatMXNGrouped(car.offerPrice)}</span><span class="price-orig">${formatMXNGrouped(car.price)}</span>`
+        : `<span class="price">${formatMXNGrouped(car.price)}</span>`;
+      return `<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; height: 1080px; position: relative; overflow: hidden;
+    font-family: -apple-system, 'Inter', sans-serif; }
+  .bg { position: absolute; inset: 0; background-image: url('${imageUrl}');
+    background-size: cover; background-position: center; }
+  .overlay { position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 100%); }
+  .content { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px; }
+  .brand { font-size: 20px; color: #9ca3af; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .name { font-size: 52px; font-weight: 800; color: white; line-height: 1.0; margin-bottom: 8px; }
+  .year { font-size: 20px; color: #9ca3af; margin-bottom: 16px; }
+  .price-row { display: flex; align-items: baseline; gap: 16px; }
+  .price { font-size: 40px; font-weight: 700; color: #f0b429; }
+  .price-orig { font-size: 24px; color: #6b7280; text-decoration: line-through; }
+</style></head><body>
+  <div class="bg"></div>
+  <div class="overlay"></div>
+  <div class="content">
+    <div class="brand">${car.make || ''}</div>
+    <div class="name">${car.model || ''}</div>
+    <div class="year">${car.year || ''}</div>
+    <div class="price-row">${priceHTML}</div>
+  </div>
+</body></html>`;
+    };
+
+    // ── Slide CTA ───────────────────────────────────────────────────────────────
+    const slideCTA = () => `<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { width: 1080px; height: 1080px; background: #0d0d0d;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: -apple-system, 'Inter', sans-serif; color: white; gap: 32px; }
+  .logo { width: 140px; }
+  h2 { font-size: 56px; font-weight: 800; text-align: center; }
+  p { font-size: 26px; color: #9ca3af; }
+  .btn { background: #25D366; color: white; font-size: 24px; font-weight: 700;
+    padding: 20px 48px; border-radius: 16px; margin-top: 16px; }
+</style></head><body>
+  <img class="logo" src="${LOGO_DATA_URI}" />
+  <h2>¿Te interesa alguno?</h2>
+  <p>Escríbenos por WhatsApp</p>
+  <div class="btn">📲 Contáctanos ahora</div>
+</body></html>`;
+
+    // ── Renderizar todos los slides ─────────────────────────────────────────────
+    browser = await launchBrowser();
+
+    const timestamp = Date.now();
+    const slideURLs = [];
+    const allSlides = [
+      { html: slideCover(), index: 0 },
+      ...carList.map((car, i) => ({ html: slideCar(car), index: i + 1 })),
+      { html: slideCTA(), index: carList.length + 1 },
+    ];
+
+    for (const { html, index } of allSlides) {
+      const buf = await renderHTML(browser, html, 1080, 1080);
+      const key = `grouped-carousels/${type}-${timestamp}-slide-${index}.jpg`;
+      const url = await uploadToSpaces({ buffer: buf, key, contentType: 'image/jpeg' });
+      slideURLs.push(url);
+    }
+
+    await browser.close();
+    browser = null;
+
+    res.json({ slides: slideURLs, count: slideURLs.length });
+  } catch (err) {
+    if (browser) await browser.close().catch(() => {});
+    console.error('[generate-grouped-carousel] Error:', err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Render Server listo en puerto ${PORT}`));
